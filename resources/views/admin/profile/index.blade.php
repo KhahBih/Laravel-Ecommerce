@@ -27,16 +27,16 @@
                         </div>
                         <div class="form-group col-md-6 col-12">
                             <label>Name</label>
-                            <input name="name" type="text" class="form-control" value="{{Auth::user()->name}}" required="">
+                            <input name="name" type="text" class="form-control" value="{{Auth::user()->name}}">
                         </div>
                         <div class="form-group col-md-6 col-12">
                             <label>Email</label>
-                            <input name="email" type="text" class="form-control" value="{{Auth::user()->email}}" required="">
+                            <input name="email" type="text" class="form-control" value="{{Auth::user()->email}}">
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Save Changes</button>
+                    <button class="btn btn-primary">Lưu</button>
                 </div>
             </form>
           </div>
@@ -57,16 +57,16 @@
                           </div>
                           <div class="form-group col-12">
                             <label>New password</label>
-                            <input name="new_password" type="password" class="form-control">
+                            <input name="password" type="password" class="form-control">
                         </div>
                         <div class="form-group col-12">
                             <label>Confirm password</label>
-                            <input name="confirm_password" type="password" class="form-control">
+                            <input name="password_confirmation" type="password" class="form-control">
                         </div>
                       </div>
                   </div>
                   <div class="card-footer text-right">
-                      <button class="btn btn-primary">Save Changes</button>
+                      <button class="btn btn-primary">Lưu</button>
                   </div>
               </form>
             </div>

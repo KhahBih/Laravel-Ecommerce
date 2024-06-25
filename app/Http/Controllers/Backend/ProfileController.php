@@ -37,13 +37,22 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
 
+        toastr()->success('Cập nhật thành công!');
         return redirect()->back();
     }
 
     // Đổi mật khẩu
     public function updatePassword(Request $request){
         $request->validate([
-            'current_password' => ['required', 'current_password', 'string']
+            'current_password' => ['required', 'current_password', 'string'],
+            'password' => ['required', 'confirmed', 'min:8']
         ]);
+
+        $request->user()->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        toastr()->success('Đổi mật khẩu thành công!');
+        return redirect()->back();
     }
 }
