@@ -15,16 +15,24 @@ class RedirectIfAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Thay đổi điều hướng ở đây
+                if ($request->routeIs('password.reset')) {
+                    // Nếu là yêu cầu đặt lại mật khẩu, không chuyển hướng
+                    return $next($request);
+                } else {
+                    // Nếu là yêu cầu khác, chuyển hướng về trang chủ
+                    return redirect(RouteServiceProvider::HOME);
+                }
             }
         }
 
         return $next($request);
     }
 }
+

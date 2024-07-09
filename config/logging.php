@@ -51,10 +51,20 @@ return [
     |
     */
 
+    'vapor' => [
+        'driver' => 'stack',
+        'channels' => ['flare', 'stderr'],
+        'ignore_exceptions' => false,
+    ],
+
     'channels' => [
+        'flare' => [
+            'driver' => 'flare',
+            'level' => 'critical', // The minimum log level to send to Flare
+        ],
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'flare'],
             'ignore_exceptions' => false,
         ],
 
