@@ -33,13 +33,11 @@ class PasswordResetLinkController extends Controller
     {
         $request->validate(['email' => 'required|email']);
         $email = $request->get('email');
-        if ($email) {
-            $status = Password::sendResetLink(
-                ['email' => $email]
-            );
-        } else {
-            dd($email);
-        }
+        $status = Password::sendResetLink(
+            ['email' => $email]
+        );
+
+        toastr('Reset link has been sent to your email');
 
         return $status === Password::RESET_LINK_SENT
                     ? back()->with('status', __($status))
