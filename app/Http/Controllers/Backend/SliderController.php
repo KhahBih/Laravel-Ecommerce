@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use File;
 
 class SliderController extends Controller
 {
@@ -94,7 +96,7 @@ class SliderController extends Controller
 
         // Handle file upload
         $imagePath = $this->updateImage($request, 'banner', 'uploads', $slider->banner);
-        $slider->banner = $imagePath;
+        $slider->banner =  empty(!$imagePath) ? $imagePath : $slider->banner;
         $slider->type = $request->type;
         $slider->title = $request->title;
         $slider->starting_price = $request->starting_price;
@@ -103,7 +105,10 @@ class SliderController extends Controller
         $slider->status = $request->status;
         $slider->save();
 
-        toastr('Created successfully!', 'success');
+        Cache::forget('sliders');
+
+        toastr('Updated Successfully!', 'success');
+
         return redirect()->route('admin.slider.index');
     }
 
@@ -112,6 +117,11 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        if(File::exists(public_path($slider->banner))){
+            File::delete(public_path($slider->banner));
+        }
+        $slider->delete();
+        return response(['status' => 'success', 'message' => 'Deleted succesfully' ]);
     }
 }
