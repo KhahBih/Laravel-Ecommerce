@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
@@ -40,7 +41,7 @@
       @include('admin.layouts.navbar')
       @include('admin.layouts.sidebar')
       <!-- Main Content -->
-      <div class="main-content">
+      <div class="main-content" style="min-height: 1px!important">
             @yield('content')
       </div>
       <footer class="main-footer">
@@ -74,6 +75,7 @@
   <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
   <!-- Page Specific JS File -->
   <script src="{{asset('backend/assets/js/page/index-0.js')}}"></script>
 
