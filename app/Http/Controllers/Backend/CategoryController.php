@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Datatables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Str;
 
 class CategoryController extends Controller
 {
@@ -29,7 +31,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'icon' => ['required', 'not_in:empty'],
+            'name' => ['required', 'string', 'max:200', 'unique:categories,name'],
+            'status' => ['required']
+        ]);
+
+        $category = new Category();
+        $category->icon = $request->icon;
+        $category->name = $request->name;
+        $category->status = $request->status;
+        $category->slug = Str::slug($request->name);
+        $category->save();
+
+        toastr('Created successfully!');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -45,7 +61,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -53,7 +70,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'icon' => ['required', 'not_in:empty'],
+            'name' => ['required', 'string', 'max:200', 'unique:categories,name,'.$id],
+            'status' => ['required']
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->icon = $request->icon;
+        $category->name = $request->name;
+        $category->status = $request->status;
+        $category->slug = Str::slug($request->name);
+        $category->save();
+
+        toastr('Updated Successfully!', 'success');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -61,6 +92,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return response(['status' => 'success', 'Deleted Successfully!']);
     }
 }

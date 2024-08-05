@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Edit Category</h1>
+            <h1>Create Sub Category</h1>
         </div>
 
         <div class="section-body">
@@ -11,26 +11,28 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <form action="{{route('admin.category.update', $category->id)}}" method="POST">
+                                <form action="{{route('admin.sub-category.store')}}" method="POST">
                                     @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        <label>Icon</label>
-                                        <div><button class="btn btn-primary" data-selected-class="btn-danger"
-                                            data-unselected-class="btn-info" role="iconpicker" name="icon" data-icon="{{$category->icon}}"></button></div>
-                                    </div>
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input type="text" class="form-control" data-tribute="true" name="name" value="{{$category->name}}">
+                                        <input type="text" class="form-control" data-tribute="true" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputState">Parent Category</label>
+                                        <select id="inputState" class="form-control select2" name="parent_category">
+                                            @foreach ($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputState">Status</label>
                                         <select id="inputState" class="form-control" name="status">
-                                          <option {{$category->status == 1 ? 'selected' : ''}} value="1">Active</option>
-                                          <option {{$category->status == 0 ? 'selected' : ''}} value="0">Inactive</option>
+                                          <option selected="" value="1">Active</option>
+                                          <option value="0">Inactive</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
                                 </form>
                             </div>
                         </div>

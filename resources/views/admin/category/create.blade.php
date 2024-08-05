@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Category</h1>
+            <h1>Create Category</h1>
         </div>
 
         <div class="section-body">
@@ -11,13 +11,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <h4>Create Category</h4>
-                                <form action="" method="POST">
+                                <form action="{{route('admin.category.store')}}" method="POST">
                                     @csrf
+                                    {{-- @method('PUT') --}}
                                     <div class="form-group">
                                         <label>Icon</label>
                                         <div><button class="btn btn-primary" data-selected-class="btn-danger"
-                                            data-unselected-class="btn-info" role="iconpicker"></button></div>
+                                            data-unselected-class="btn-info" role="iconpicker" name="icon"></button></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Name</label>
