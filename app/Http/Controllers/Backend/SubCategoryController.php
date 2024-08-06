@@ -95,6 +95,8 @@ class SubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subCategory = SubCategory::findOrFail($id);
+        $subCategory->delete();
+        return redirect()->route('admin.sub-category.index');
     }
 }
