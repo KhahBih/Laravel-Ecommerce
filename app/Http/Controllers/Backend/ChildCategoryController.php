@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Datatables\ChildCategoryDataTable;
 use Illuminate\Http\Request;
+use Str;
 
 class ChildCategoryController extends Controller
 {
@@ -39,7 +41,23 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:200', 'unique:child_categories,name'],
+            'parent_category' => ['required'],
+            'sub_category' => ['required'],
+            'status' => ['required']
+        ]);
+
+        $childCategory = new ChildCategory();
+        $childCategory->name = $request->name;
+        $childCategory->category_id = $request->parent_category;
+        $childCategory->sub_category_id = $request->sub_category;
+        $childCategory->slug = Str::slug($request->name);
+        $childCategory->status = $request->status;
+        $childCategory->save();
+
+        toastr('Created Successfully!', 'success');
+        return redirect()->route('admin.child-category.index');
     }
 
     /**
@@ -55,7 +73,10 @@ class ChildCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::all();
+        $childCategory = ChildCategory::findOrFail($id);
+        $subCategories = SubCategory::where('category_id', $childCategory->category_id)->get();
+        return view('admin.child-category.edit', compact('childCategory', 'categories', 'subCategories'));
     }
 
     /**
@@ -63,7 +84,23 @@ class ChildCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:200', 'unique:child_categories,name,'.$id],
+            'parent_category' => ['required'],
+            'sub_category' => ['required'],
+            'status' => ['required']
+        ]);
+
+        $childCategory = ChildCategory::findOrFail($id);
+        $childCategory->name = $request->name;
+        $childCategory->category_id = $request->parent_category;
+        $childCategory->sub_category_id = $request->sub_category;
+        $childCategory->slug = Str::slug($request->name);
+        $childCategory->status = $request->status;
+        $childCategory->save();
+
+        toastr('Created Successfully!', 'success');
+        return redirect()->route('admin.child-category.index');
     }
 
     /**
@@ -71,6 +108,8 @@ class ChildCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $childCategory = ChildCategory::findOrFail($id);
+        $childCategory->delete();
+        response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

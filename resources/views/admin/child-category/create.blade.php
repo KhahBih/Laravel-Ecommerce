@@ -20,6 +20,7 @@
                                     <div class="form-group">
                                         <label for="inputState">Parent Category</label>
                                         <select id="inputState" class="form-control select2 parent-category" name="parent_category">
+                                            <option value="">Select</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
@@ -28,10 +29,8 @@
 
                                     <div class="form-group">
                                         <label for="inputState">Sub Category</label>
-                                        <select id="inputState" class="form-control select2" name="parent_category">
-                                            @foreach ($subCategories as $subCategory)
-                                                <option value="{{$subCategory->id}}">{{$subCategory->name}}</option>
-                                            @endforeach
+                                        <select id="inputState" class="form-control select2 sub-category" name="sub_category">
+                                            <option value="">Select</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -63,8 +62,9 @@
                         id:id
                     },
                     success: function(data){
+                        $('.sub-category').html('<option value="">Select</option>');
                         $.each(data, function(i, item){
-
+                            $('.sub-category').append(`<option value="${item.id}">${item.name}</option>`)
                         });
                     },
                     error: function(xhr, status, error){
