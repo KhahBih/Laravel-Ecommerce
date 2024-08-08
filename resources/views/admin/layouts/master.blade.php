@@ -115,17 +115,20 @@
                                 type: 'DELETE',
                                 url: deleteURL,
                                 success: function(data){
-                                    window.location.reload();
+                                    if(data.status == 'success'){
+                                        Swal.fire('Deleted!',
+                                        data.message,
+                                        'success');
+                                        window.location.reload();
+                                    }else if(data.status == 'error'){
+                                        Swal.fire('Cant delete!',
+                                        data.message,
+                                        'error');
+                                    }
                                 },
                                 error: function(xhr, status, error){
                                     console.log(error);
                                 }
-                            });
-
-                            Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
                             });
                         }
                     });
