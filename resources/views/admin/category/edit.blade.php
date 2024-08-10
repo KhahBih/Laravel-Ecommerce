@@ -15,7 +15,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label>Icon</label>
+                                        <label>Iconc</label>
                                         <div><button class="btn btn-primary" data-selected-class="btn-danger"
                                             data-unselected-class="btn-info" role="iconpicker" name="icon" data-icon="{{$category->icon}}"></button></div>
                                     </div>
