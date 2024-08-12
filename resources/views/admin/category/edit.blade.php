@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Edit1 Category</h1>
+            <h1>Edit Category</h1>
         </div>
 
         <div class="section-body">
@@ -15,7 +15,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label>Iconc</label>
+                                        <label>Icon</label>
                                         <div><button class="btn btn-primary" data-selected-class="btn-danger"
                                             data-unselected-class="btn-info" role="iconpicker" name="icon" data-icon="{{$category->icon}}"></button></div>
                                     </div>

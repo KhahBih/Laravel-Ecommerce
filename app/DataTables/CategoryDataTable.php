@@ -83,6 +83,7 @@ class CategoryDataTable extends DataTable
             Column::make('id')->width(20),
             Column::make('icon')->width(50),
             Column::make('name')->width(40),
+            Column::make('slug')->width(40),
             Column::make('status')->width(10),
             Column::computed('action')->width(30)
             ->exportable(false)

@@ -84,6 +84,7 @@ class ChildCategoryDataTable extends DataTable
         return [
             Column::make('id')->width(20),
             Column::make('name')->width(150),
+            Column::make('slug')->width(100),
             Column::make('Parent category')->width(100),
             Column::make('Sub category')->width(100),
             Column::make('status')->width(10),
