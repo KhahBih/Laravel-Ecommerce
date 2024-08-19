@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -23,4 +24,7 @@ Route::resource('slider', SliderController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('sub-category', SubCategoryController::class);
 Route::resource('child-category', ChildCategoryController::class);
+
+// Brand routes
+Route::resource('brand', BrandController::class);
 ?>
