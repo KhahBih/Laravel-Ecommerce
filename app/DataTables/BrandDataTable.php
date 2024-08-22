@@ -22,7 +22,36 @@ class BrandDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'brand.action')
+            ->addColumn('action', function($query){
+                $editBtn = "<a href='".route('admin.brand.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='".route('admin.brand.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                return $editBtn.$deleteBtn;
+            })
+            ->addColumn('logo', function($query){
+                return "<img width='100px' height='100px' src='".asset($query->logo)."' />";
+            })
+            ->addColumn('featured', function($query){
+                return $query->is_featured;
+            })
+            ->addColumn('status', function($query){
+                $active = '<i class="badge badge-success">Active</i>';
+                $inActive = '<i class="badge badge-danger">Inactive</i>';
+                if($query->status == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->addColumn('featured', function($query){
+                $active = '<i class="badge badge-success">Yes</i>';
+                $inActive = '<i class="badge badge-danger">No</i>';
+                if($query->is_featured == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->rawColumns(['action', 'logo', 'status', 'featured'])
             ->setRowId('id');
     }
 
@@ -62,15 +91,16 @@ class BrandDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('logo'),
+            Column::make('name'),
+            Column::make('status'),
+            Column::make('featured'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(200)
+            ->addClass('text-center')
         ];
     }
 
