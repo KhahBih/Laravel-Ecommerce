@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\AdminVendorProfileController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -27,4 +28,5 @@ Route::resource('child-category', ChildCategoryController::class);
 
 // Brand routes
 Route::resource('brand', BrandController::class);
+Route::resource('vendor-profile', AdminVendorProfileController::class);
 ?>
