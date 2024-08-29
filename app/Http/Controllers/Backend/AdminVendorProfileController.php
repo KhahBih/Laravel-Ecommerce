@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminVendorProfile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 
 class AdminVendorProfileController extends Controller
 {
+    use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.vendor-profile.index');
+        $profile = AdminVendorProfile::where('user_id', Auth::user()->id)->first();
+        return view('admin.vendor-profile.index', compact('profile'));
     }
 
     /**
@@ -28,7 +33,31 @@ class AdminVendorProfileController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'banner' => ['nullable', 'image', 'max:2048'],
+            'phone' => ['required', 'max:50'],
+            'email' => ['required', 'email', 'max:200'],
+            'address' => ['required'],
+            'description' => ['required'],
+            'fb_link' => ['nullable', 'url'],
+            'tw_link' => ['nullable', 'url'],
+            'insta_link' => ['nullable', 'url']
+        ]);
+
+        $vendor = AdminVendorProfile::where('user_id', Auth::user()->id)->first();
+        $bannerPath = $this->updateImage($request, 'banner', 'uploads', $vendor->banner);
+        $vendor->banner = empty(!$bannerPath) ? $bannerPath : $vendor->banner;
+        $vendor->phone = $request->phone;
+        $vendor->email = $request->email;
+        $vendor->address = $request->address;
+        $vendor->description = $request->description;
+        $vendor->fb_link = $request->fb_link;
+        $vendor->tw_link = $request->tw_link;
+        $vendor->insta_link = $request->insta_link;
+        $vendor->save();
+
+        toastr('Updated successfully!', 'success');
+        return redirect()->back();
     }
 
     /**
