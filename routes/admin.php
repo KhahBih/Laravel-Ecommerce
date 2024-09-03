@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use Illuminate\Http\Request;
 
@@ -29,4 +30,10 @@ Route::resource('child-category', ChildCategoryController::class);
 // Brand routes
 Route::resource('brand', BrandController::class);
 Route::resource('vendor-profile', AdminVendorProfileController::class);
+
+// Product routes
+Route::get('products/get-sub-categories', [ProductController::class, 'getSubCategories'])->name('product.get-sub-categories');
+Route::get('products/get-child-categories', [ProductController::class, 'getChildCategories'])->name('product.get-child-categories');
+Route::resource('products', ProductController::class);
+
 ?>
