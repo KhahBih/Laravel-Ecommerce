@@ -53,6 +53,50 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputState">Brand</label>
+                                <select id="inputState" class="form-control child-category" name="brand">
+                                    <option value="">Select</option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>SKU</label>
+                                <input type="text" class="form-control" data-tribute="true" name="sku" value="{{old('sku')}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="text" class="form-control" data-tribute="true" name="price" value="{{old('price')}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Offer price</label>
+                                <input type="text" class="form-control" data-tribute="true" name="offer_price" value="{{old('offer_price')}}">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Offer start date</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="offer_start_date" value="{{old('offer_start_date')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Offer end date</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="offer_end_date" value="{{old('offer_end_date')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputState">Status</label>
+                                <select id="inputState" class="form-control" name="status">
+                                  <option selected="" value="1">Active</option>
+                                  <option value="0">Inactive</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary">Create</button>
                        </form>
                     </div>

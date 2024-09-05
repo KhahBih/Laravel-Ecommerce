@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Brand;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use Illuminate\Http\Request;
+use App\DataTables\ProductDataTable;
 
 class ProductController extends Controller
 {
@@ -24,7 +26,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        $brands = Brand::all();
+        return view('admin.products.create', compact('categories', 'brands'));
     }
 
     /**
