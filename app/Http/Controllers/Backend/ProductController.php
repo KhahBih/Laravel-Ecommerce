@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use Illuminate\Http\Request;
 use App\DataTables\ProductDataTable;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -35,7 +37,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // $request->validate([
+        //     'image' => ['required', 'image', 'max:3048'],
+        //     'name' => ['required', 'max:40'],
+        //     'category' => ['required'],
+        //     'brand' => ['required'],
+        //     'price' => ['required'],
+        //     'qty' => ['required'],
+        //     'short_desc' => ['required', 'max:500'],
+        //     'long_desc' => ['required'],
+        //     'is_top' => ['required'],
+        //     'is_best' => ['required'],
+        //     'is_featured' => ['required']
+        // ]);
+
+        // $product = new Product();
+        // // $product->thumb_image = '';
+        // // $product->name = $request->name;
+        // // $product->vendor_id = $request->name;
+        // // $product->name = $request->name;
+        dd(Auth::user()->vendor);
     }
 
     /**

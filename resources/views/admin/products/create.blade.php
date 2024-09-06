@@ -80,16 +80,67 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Offer start date</label>
-                                        <input type="text" class="form-control" data-tribute="true" name="offer_start_date" value="{{old('offer_start_date')}}">
+                                        <input type="text" class="form-control datepicker" data-tribute="true" name="offer_start_date" value="{{old('offer_start_date')}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Offer end date</label>
-                                        <input type="text" class="form-control" data-tribute="true" name="offer_end_date" value="{{old('offer_end_date')}}">
+                                        <input type="text" class="form-control datepicker" data-tribute="true" name="offer_end_date" value="{{old('offer_end_date')}}">
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label>Stock quantity</label>
+                                <input type="number" min="0" class="form-control datepicker" data-tribute="true" name="qty" value="{{old('qty')}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Video link</label>
+                                <input type="text" class="form-control" data-tribute="true" name="video_link" value="{{old('video_link')}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Short description</label>
+                                <textarea name="short_desc" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Long description</label>
+                                <textarea name="long_desc" class="form-control summernote"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputState">Is Top</label>
+                                        <select id="inputState" class="form-control" name="status">
+                                          <option selected="" value="1">Yes</option>
+                                          <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputState">Is Featured</label>
+                                        <select id="inputState" class="form-control" name="status">
+                                          <option selected="" value="1">Yes</option>
+                                          <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputState">Is Best</label>
+                                        <select id="inputState" class="form-control" name="status">
+                                          <option selected="" value="1">Yes</option>
+                                          <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="inputState">Status</label>
                                 <select id="inputState" class="form-control" name="status">
