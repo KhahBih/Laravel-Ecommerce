@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputState">Brand</label>
-                                <select id="inputState" class="form-control child-category" name="brand">
+                                <select id="inputState" class="form-control" name="brand">
                                     <option value="">Select</option>
                                     @foreach ($brands as $brand)
                                         <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -93,7 +93,7 @@
 
                             <div class="form-group">
                                 <label>Stock quantity</label>
-                                <input type="number" min="0" class="form-control datepicker" data-tribute="true" name="qty" value="{{old('qty')}}">
+                                <input type="number" min="0" class="form-control" data-tribute="true" name="qty" value="{{old('qty')}}">
                             </div>
 
                             <div class="form-group">
@@ -115,8 +115,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputState">Is Top</label>
-                                        <select id="inputState" class="form-control" name="status">
-                                          <option selected="" value="1">Yes</option>
+                                        <select id="inputState" class="form-control" name="is_top">
+                                          <option value="">Select</option>
+                                          <option value="1">Yes</option>
                                           <option value="0">No</option>
                                         </select>
                                     </div>
@@ -124,8 +125,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputState">Is Featured</label>
-                                        <select id="inputState" class="form-control" name="status">
-                                          <option selected="" value="1">Yes</option>
+                                        <select id="inputState" class="form-control" name="is_featured">
+                                          <option value="">Select</option>
+                                          <option value="1">Yes</option>
                                           <option value="0">No</option>
                                         </select>
                                     </div>
@@ -133,8 +135,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputState">Is Best</label>
-                                        <select id="inputState" class="form-control" name="status">
-                                          <option selected="" value="1">Yes</option>
+                                        <select id="inputState" class="form-control" name="is_best">
+                                          <option value="">Select</option>
+                                          <option value="1">Yes</option>
                                           <option value="0">No</option>
                                         </select>
                                     </div>
@@ -142,9 +145,19 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="inputState">SEO title</label>
+                                <input type="text" class="form-control" data-tribute="true" name="seo_title">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputState">SEO description</label>
+                                <textarea name="seo_desc" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="inputState">Status</label>
                                 <select id="inputState" class="form-control" name="status">
-                                  <option selected="" value="1">Active</option>
+                                  <option value="1">Active</option>
                                   <option value="0">Inactive</option>
                                 </select>
                             </div>
