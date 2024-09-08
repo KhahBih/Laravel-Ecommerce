@@ -51,9 +51,6 @@ class ProductController extends Controller
             'qty' => ['required'],
             'short_desc' => ['required', 'max:500'],
             'long_desc' => ['required'],
-            'is_top' => ['required'],
-            'is_best' => ['required'],
-            'is_featured' => ['required'],
             'seo_title' => ['max:200', 'nullable'],
             'seo_desc' => ['max:1000', 'nullable'],
             'status' => ['required']
@@ -80,9 +77,7 @@ class ProductController extends Controller
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
-        $product->is_top = $request->is_top;
-        $product->is_best = $request->is_best;
-        $product->is_featured = $request->is_featured;
+        $product->product_type = $request->product_type;
         $product->is_approved = 1;
         $product->seo_title = $request->seo_title;
         $product->seo_desc = $request->seo_desc;
