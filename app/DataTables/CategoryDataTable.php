@@ -38,7 +38,6 @@ class CategoryDataTable extends DataTable
                 }else{
                     return $inActive;
                 }
-                // return $img = "<img width='100px' height='100px' src='".asset($query->banner)."' />";
             })
             ->rawColumns(['icon', 'action', 'status'])
             ->setRowId('id');

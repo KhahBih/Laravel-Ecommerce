@@ -23,6 +23,10 @@ class ProductDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'product.action')
+            ->addColumn('image', function($query){
+                return "<img width='100px' src='".asset($query->thumb_image)."'></img>";
+            })
+            ->rawColumns(['action', 'image'])
             ->setRowId('id');
     }
 
@@ -62,15 +66,17 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('name'),
+            Column::make('image'),
+            Column::make('price'),
+            Column::make('product_type'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                  ->addClass('text-center')
         ];
     }
 
