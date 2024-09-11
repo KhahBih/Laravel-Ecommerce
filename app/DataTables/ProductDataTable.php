@@ -22,11 +22,53 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'product.action')
+            ->addColumn('action', function($query){
+                $editBtn = "<a href='".route('admin.products.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='".route('admin.products.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $moreBtn = '<div class="dropdown dropleft d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#"><i class="far fa-heart"></i> Action</a>
+                        <a class="dropdown-item has-icon" href="#"><i class="far fa-file"></i> Another action</a>
+                        <a class="dropdown-item has-icon" href="#"><i class="far fa-clock"></i> Something else here</a>
+                      </div>
+                    </div>';
+                return $editBtn.$deleteBtn.$moreBtn;
+            })
             ->addColumn('image', function($query){
                 return "<img width='100px' src='".asset($query->thumb_image)."'></img>";
             })
-            ->rawColumns(['action', 'image'])
+            ->addColumn('type', function($query){
+                switch($query->product_type){
+                    case 'new_arrival':
+                        return '<i class="badge badge-success">New Arrival</i>';
+                        break;
+                    case 'featured_product':
+                        return '<i class="badge badge-success">Featured Product</i>';
+                        break;
+                    case 'top_product':
+                        return '<i class="badge badge-success">Top Product</i>';
+                        break;
+                    case 'best_product':
+                        return '<i class="badge badge-success">Best Product</i>';
+                        break;
+                    default:
+                        return '<i class="badge badge-dark">None</i>';
+                        break;
+                }
+            })
+            ->addColumn('status', function($query){
+                $active = '<i class="badge badge-success">Active</i>';
+                $inActive = '<i class="badge badge-danger">Inactive</i>';
+                if($query->status == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->rawColumns(['action', 'image', 'type', 'status'])
             ->setRowId('id');
     }
 
@@ -66,16 +108,16 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('image'),
-            Column::make('price'),
-            Column::make('product_type'),
-            Column::make('status'),
+            Column::make('id')->width(10),
+            Column::make('name')->width(150),
+            Column::make('image')->width(80),
+            Column::make('price')->width(100),
+            Column::make('type')->width(70),
+            Column::make('status')->width(70),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(120)
                   ->addClass('text-center')
         ];
     }
