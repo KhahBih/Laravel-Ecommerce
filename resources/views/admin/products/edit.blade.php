@@ -14,8 +14,9 @@
                         <h4>Create Product</h4>
                     </div>
                     <div class="card-body">
-                       <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
+                       <form action="{{route('admin.products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                             <div class="form-group" style="display: flex; flex-direction: column">
                                 <label>Preview</label>
                                 <img src="{{asset($product->thumb_image)}}" alt="" style="width: 200px">
@@ -151,7 +152,7 @@
                                   <option {{$product->status == 0 ? 'selected' : ''}} value="0">Inactive</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                        </form>
                     </div>
                     </div>
