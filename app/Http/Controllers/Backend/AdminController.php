@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view('aadmin.dashboard');
+        return view('aaddmin.dashboard');
     }
 
     public function login(){
