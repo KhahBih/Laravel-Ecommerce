@@ -17,7 +17,7 @@ class BrandController extends Controller
      */
     public function index(BrandDataTable $dataTable)
     {
-        return $dataTablea->render('admin.brand.index');
+        return $dataTable->render('admin.brand.index');
     }
 
     /**
