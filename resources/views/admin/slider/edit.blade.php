@@ -51,7 +51,7 @@
                                   <option {{$slider->status == '1' ? 'selected' : ''}} value="1">Active</option>
                                   <option {{$slider->status == '0' ? 'selected' : ''}} value="0">Inactive</option>
                                 </select>
-                              </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">Update</button>
                        </form>
                     </div>
