@@ -41,4 +41,5 @@ Route::resource('products', ProductController::class);
 Route::resource('products-image-gallery', ProductImageGalleryController::class);
 Route::resource('products-variant', ProductVariantController::class);
 Route::get('products-variant-item/{productId}/{variantId}', [ProductVariantItemController::class, 'index'])->name('products-variant-item.index');
-Route::get('products-variant-item/{variantId}', [ProductVariantItemController::class, 'create'])->name('products-variant-item.create');
+Route::get('products-variant-item/create/{productId}/{variantId}', [ProductVariantItemController::class, 'create'])->name('products-variant-item.create');
+Route::post('products-variant-item/{variantId}', [ProductVariantItemController::class, 'store'])->name('products-variant-item.store');

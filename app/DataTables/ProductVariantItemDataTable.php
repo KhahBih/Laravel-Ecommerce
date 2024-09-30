@@ -22,7 +22,30 @@ class ProductVariantItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'productvariantitem.action')
+            ->addColumn('action', function($query){
+                $editBtn = "<a href='".route('admin.slider.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='".route('admin.slider.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                return $editBtn.$deleteBtn;
+            })
+            ->addColumn('is default', function($query){
+                $active = '<i class="badge badge-success">Yes</i>';
+                $inActive = '<i class="badge badge-danger">No</i>';
+                if($query->is_default == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->addColumn('status', function($query){
+                $active = '<i class="badge badge-success">Active</i>';
+                $inActive = '<i class="badge badge-danger">Inactive</i>';
+                if($query->status == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->rawColumns(['action', 'is default', 'status'])
             ->setRowId('id');
     }
 
@@ -62,15 +85,16 @@ class ProductVariantItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(20),
+            Column::make('name'),
+            Column::make('price'),
+            Column::make('is default')->width(120),
+            Column::make('status')->width(150),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                  ->width(120)
+                  ->addClass('text-center')
         ];
     }
 

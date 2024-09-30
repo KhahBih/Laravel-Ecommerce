@@ -13,14 +13,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="POST">
+                            <form action="{{route('admin.products-variant-item.store', $variant->id)}}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label>Variant Name</label>
-                                    <input type="text" readonly class="form-control" data-tribute="true" name="variant_name" value="{{$variant->name}}">
+                                    <input type="text" readonly class="form-control" data-tribute="true" name="product_variant_name" value="{{$variant->name}}">
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" readonly class="form-control" data-tribute="true" name="variant_id" value="{{$variant->id}}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" readonly class="form-control" data-tribute="true" name="product_id" value="{{$product->id}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Item Name</label>
