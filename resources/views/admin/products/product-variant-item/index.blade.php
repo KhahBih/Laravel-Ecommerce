@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="card">
                     <div class="card-header">
-                        <h4>All Products</h4>
+                        <h4></h4>
                         <div class="card-header-action">
                             <a href="{{route('admin.products-variant-item.create', ['productId' => request()->productId, 'variantId' => request()->variantId])}}"
                             class="btn btn-primary">+ Add new</a>

@@ -23,11 +23,11 @@ class ProductVariantDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $imageOption = "<a href='".route('admin.products-variant-item.index', ['productId' => request()->product, 'variantId' => $query->id])."'
+                $variantItems = "<a href='".route('admin.products-variant-item.index', ['productId' => request()->product, 'variantId' => $query->id])."'
                 class='btn btn-info'><i class='far fa-edit'></i> Variant Items</a>";
                 $editBtn = "<a href='".route('admin.products-variant.edit', $query->id)."' class='btn btn-primary ml-2'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='".route('admin.products-variant.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-                return $imageOption.$editBtn.$deleteBtn;
+                return $variantItems.$editBtn.$deleteBtn;
             })
             ->addColumn('status', function($query){
                 $active = '<i class="badge badge-success">Active</i>';
