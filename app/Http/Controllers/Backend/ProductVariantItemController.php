@@ -67,4 +67,10 @@ class ProductVariantItemController extends Controller
         return redirect()->route('admin.products-variant-item.index',
         ['productId' => $productVariantItem->productVariant->product_id, 'variantId' => $productVariantItem->product_variant_id]);
     }
+
+    public function destroy(string $productVariantItemId){
+        $productVariantItem = ProductVariantItem::findOrFail($productVariantItemId);
+        $productVariantItem->delete();
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+    }
 }
