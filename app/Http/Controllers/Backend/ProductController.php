@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\ProductImageGallery;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
 use Illuminate\Http\Request;
@@ -169,7 +171,25 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        // Delete product main image
+        $this->deleteImage($product->thumb_image);
+        // Delete product image gallery
+        $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
+        foreach($galleryImages as $image){
+            $this->deleteImage($image->image);
+            $image->delete();
+        }
+
+        $productVariants = ProductVariant::where('product_id', $product->id)->get();
+        foreach($productVariants as $variant){
+            $variant->productVariantItems()->delete();
+            $variant->delete();
+        }
+        $product->delete();
+
+        toastr('success', 'Deleted Successfully!');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
     public function getSubCategories(Request $request)
