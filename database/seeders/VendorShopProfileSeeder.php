@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
-use App\Models\Vendor;
+use App\Models\AdminVendorProfile;
 use Illuminate\Database\Seeder;
 
 class VendorShopProfileSeeder extends Seeder
@@ -15,8 +15,9 @@ class VendorShopProfileSeeder extends Seeder
     public function run(): void
     {
         $user = User::where('email', 'vendor@gmail.com')->first();
-        $vendor = new Vendor();
+        $vendor = new AdminVendorProfile();
         $vendor->banner = 'uploads/1324.jpg';
+        $vendor->shop_name = 'Hikari Nii Chan';
         $vendor->phone = '0376402133';
         $vendor->email = 'vendor@gmail.com';
         $vendor->address = 'vn';

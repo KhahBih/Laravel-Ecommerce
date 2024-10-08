@@ -24,6 +24,8 @@
 
   <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
+
   <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -101,6 +103,10 @@
 
   <!--main/custom js-->
   <script src="{{asset('frontend/js/main.js')}}"></script>
+  <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
+  <script>
+    $('.summernote').summernote({height: 150});
+  </script>
 </body>
 
 </html>

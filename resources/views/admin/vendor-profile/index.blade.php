@@ -25,6 +25,10 @@
                                 <input type="file" class="form-control" data-tribute="true" name="banner">
                             </div>
                             <div class="form-group">
+                                <label>Shop name</label>
+                                <input type="text" class="form-control" data-tribute="true" name="shop_name" value="{{$profile->shop_name}}">
+                            </div>
+                            <div class="form-group">
                                 <label>Phone</label>
                                 <input type="text" class="form-control" data-tribute="true" name="phone" value="{{$profile->phone}}">
                             </div>

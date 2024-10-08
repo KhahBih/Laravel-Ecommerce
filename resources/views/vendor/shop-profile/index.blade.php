@@ -9,41 +9,45 @@
             <h3><i class="far fa-user"></i> Shop profile</h3>
             <div class="wsus__dashboard_profile">
               <div class="wsus__dash_pro_area">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{route('vendor.shop-profile.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Preview</label>
                             <img width="200px" src="{{asset($profile->banner)}}" alt="">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Banner</label>
                             <input type="file" class="form-control" data-tribute="true" name="banner">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
+                            <label>Shop name</label>
+                            <input type="text" class="form-control" data-tribute="true" name="shop_name" value="{{$profile->shop_name}}">
+                        </div>
+                        <div class="form-group wsus_input">
                             <label>Phone</label>
                             <input type="text" class="form-control" data-tribute="true" name="phone" value="{{$profile->phone}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Email</label>
                             <input type="text" class="form-control" data-tribute="true" name="email" value="{{$profile->email}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Address</label>
                             <input type="text" class="form-control" data-tribute="true" name="address" value="{{$profile->address}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Description</label>
                             <textarea class="summernote" name="description">{{$profile->description}}</textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Facebook</label>
                             <input type="text" class="form-control" data-tribute="true" name="fb_link" value="{{$profile->fb_link}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Twitter</label>
                             <input type="text" class="form-control" data-tribute="true" name="tw_link" value="{{$profile->tw_link}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group wsus_input">
                             <label>Instagram</label>
                             <input type="text" class="form-control" data-tribute="true" name="insta_link" value="{{$profile->insta_link}}">
                         </div>
