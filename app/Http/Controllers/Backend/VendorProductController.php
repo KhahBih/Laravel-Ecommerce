@@ -10,9 +10,9 @@ class VendorProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(VendorProductDataTable $dataTable)
     {
-        //
+        return $dataTable->render('vendor.product.index');
     }
 
     /**

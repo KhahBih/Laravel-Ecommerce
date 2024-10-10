@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{asset('frontend/css/add_row_custon.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/mobile_menu.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.exzoom.css')}}">
+  <link rel="stylesheet" href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="{{asset('frontend/css/multiple-image-video.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/ranger_style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.classycountdown.css')}}">
@@ -100,7 +101,8 @@
   <script src="{{asset('frontend/js/venobox.min.js')}}"></script>
   <!--classycountdown js-->
   <script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
-
+  <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
   <!--main/custom js-->
   <script src="{{asset('frontend/js/main.js')}}"></script>
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
