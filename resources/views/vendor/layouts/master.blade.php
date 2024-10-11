@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="{{asset('frontend/css/ranger_style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.classycountdown.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/venobox.min.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
   <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
@@ -45,7 +46,7 @@
   <!--=============================
     DASHBOARD MENU END
   ==============================-->
-
+    @include('vendor.layouts.sidebar');
 
   <!--=============================
     DASHBOARD START
@@ -104,11 +105,20 @@
   <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.2/js/dataTables.bootstrap5.js"></script>
   <!--main/custom js-->
+  <script src="{{asset('backend/assets/modules/moment.min.js')}}"></script>
   <script src="{{asset('frontend/js/main.js')}}"></script>
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
+  <script src="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
   <script>
     $('.summernote').summernote({height: 150});
+    $('.datepicker').daterangepicker({
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        singleDatePicker: true
+    });
   </script>
+  @stack('scripts')
 </body>
 
 </html>
