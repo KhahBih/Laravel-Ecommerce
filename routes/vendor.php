@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\VendorShopProfileController;
 use App\Http\Controllers\Backend\VendorProfileController;
 use App\Http\Controllers\Backend\VendorProductController;
+use App\Http\Controllers\Backend\VendorProductImageGalleryController;
 
 Route::get('products/get-sub-categories', [VendorProductController::class, 'getSubCategories'])->name('products.get-sub-categories');
 Route::get('products/get-child-categories', [VendorProductController::class, 'getChildCategories'])->name('products.get-child-categories');
@@ -17,4 +18,5 @@ Route::resource('/shop-profile', VendorShopProfileController::class)->names([
     'index' => 'shop-profile.index',
 ]);
 Route::resource('/products', VendorProductController::class);
+Route::resource('/vendor-product-image-gallery', VendorProductImageGalleryController::class);
 ?>

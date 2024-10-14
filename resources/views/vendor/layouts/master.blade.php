@@ -118,6 +118,7 @@
         singleDatePicker: true
     });
   </script>
+
   @stack('scripts')
 </body>
 
