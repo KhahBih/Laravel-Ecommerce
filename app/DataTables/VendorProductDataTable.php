@@ -27,7 +27,7 @@ class VendorProductDataTable extends DataTable
         ->addColumn('action', function($query){
             $editBtn = "<a href='".route('vendor.products.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
             $deleteBtn = "<a href='".route('vendor.products.destroy', $query->id)."' class='btn btn-danger delete-item' style='margin-left: 4px'><i class='far fa-trash-alt'></i></a>";
-            $imageGalleryBtn = '<a style="margin: 0 5px 0 5px!important; padding: 6px 15px 6px 15px!important" class="btn btn-success" href="'.route('admin.products-image-gallery.index', ['product' => $query->id]).'"><i class="far fa-file-image"></i></a>';
+            $imageGalleryBtn = '<a style="margin: 0 5px 0 5px!important; padding: 6px 15px 6px 15px!important" class="btn btn-success" href="'.route('vendor.vendor-product-image-gallery.index', ['product' => $query->id]).'"><i class="far fa-file-image"></i></a>';
             $variantBtn = '<a class="btn btn-warning" href="'.route('admin.products-variant.index', ['product' => $query->id]).'"><i class="far fa-star"></i></a>';
             return $editBtn.$deleteBtn.$imageGalleryBtn.$variantBtn;
         })
