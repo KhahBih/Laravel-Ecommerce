@@ -9468,3 +9468,7 @@ a:not([href]):not([class]):hover {
 .create_button{
   text-align: end;
 }
+
+.btn-spaceright{
+    margin: 0 4px 0 4px!important;
+}
