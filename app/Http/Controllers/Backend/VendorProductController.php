@@ -162,7 +162,7 @@ class VendorProductController extends Controller
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
-        $product->is_approved = $product->is_approved;
+        $product->is_approved = 0;
         $product->seo_title = $request->seo_title;
         $product->seo_desc = $request->seo_desc;
         $product->status = $request->status;
@@ -177,7 +177,28 @@ class VendorProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        if($product->vendor_id != Auth::user()->vendor->id){
+            abort(404);
+        }
+        // Delete product main image
+        $this->deleteImage($product->thumb_image);
+        // Delete product image gallery
+        $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
+        foreach($galleryImages as $image){
+            $this->deleteImage($image->image);
+            $image->delete();
+        }
+
+        $productVariants = ProductVariant::where('product_id', $product->id)->get();
+        foreach($productVariants as $variant){
+            $variant->productVariantItems()->delete();
+            $variant->delete();
+        }
+        $product->delete();
+
+        toastr('success', 'Deleted Successfully!');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
     public function getSubCategories(Request $request)

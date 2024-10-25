@@ -62,7 +62,16 @@ class VendorProductDataTable extends DataTable
                 return $inActive;
             }
         })
-        ->rawColumns(['action', 'image', 'type', 'status'])
+        ->addColumn('approve', function($query){
+            $approve = '<i class="badge bg-success">Approved</i>';
+            $notApprove = '<i class="badge bg-danger">Pending</i>';
+            if($query->is_approved == 1){
+                return $approve;
+            }else{
+                return $notApprove;
+            }
+        })
+        ->rawColumns(['action', 'image', 'type', 'status', 'approve'])
         ->setRowId('id');
     }
 
@@ -102,12 +111,13 @@ class VendorProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(10),
+            Column::make('id')->width(5),
             Column::make('name')->width(150),
             Column::make('image')->width(80),
             Column::make('price')->width(100),
             Column::make('type')->width(70),
             Column::make('status')->width(70),
+            Column::make('approve')->width(70),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
