@@ -11,4 +11,8 @@ class Product extends Model
     public function variants(){
         return $this->hasMany(ProductVariant::class);
     }
+
+    public function vendor(){
+        return $this->belongsTo(AdminVendorProfile::class);
+    }
 }
