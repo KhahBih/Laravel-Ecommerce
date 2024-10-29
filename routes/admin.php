@@ -51,4 +51,5 @@ Route::delete('products-variant-item-delete/{productVariantItemId}', [ProductVar
 // Seller product
 Route::get('seller-products', [SellerProductController::class, 'index'])->name('seller-products.index');
 Route::get('seller-pending-products', [SellerProductController::class, 'pending'])->name('seller-pending-products.index');
+Route::put('change-approve-status', [SellerProductController::class, 'changeApproveStatus'])->name('change-approve-status');
 

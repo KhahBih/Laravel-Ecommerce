@@ -68,7 +68,7 @@ class SellerPendingProductDataTable extends DataTable
                 }
             })
             ->addColumn('approve', function($query){
-                return "<select class='form-control is_approve'>
+                return "<select class='form-control is_approve' data-id='$query->id'>
                     <option value='0'>Pending</option>
                     <option value='1'>Approved</option>
                 </select>";
@@ -137,6 +137,7 @@ class SellerPendingProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'SellerPendingProducts_' . date('YmdHis');
     }
 }
+

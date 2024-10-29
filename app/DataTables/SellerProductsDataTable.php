@@ -38,7 +38,7 @@ class SellerProductsDataTable extends DataTable
                 return $editBtn.$deleteBtn.$moreBtn;
             })
             ->addColumn('image', function($query){
-                return "<img width='100px' src='".asset($query->thumb_image)."'></img>";
+                return "<img width='70px' src='".asset($query->thumb_image)."'></img>";
             })
             ->addColumn('type', function($query){
                 switch($query->product_type){
@@ -59,6 +59,12 @@ class SellerProductsDataTable extends DataTable
                         break;
                 }
             })
+            ->addColumn('approve', function($query){
+                return "<select class='form-control is_approve' data-id='$query->id'>
+                    <option value='0'>Pending</option>
+                    <option selected value='1'>Approved</option>
+                </select>";
+            })
             ->addColumn('status', function($query){
                 $active = '<i class="badge bg-success">Active</i>';
                 $inActive = '<i class="badge bg-danger">Inactive</i>';
@@ -71,7 +77,7 @@ class SellerProductsDataTable extends DataTable
             ->addColumn('vendor', function($query){
                 return $query->vendor->shop_name;
             })
-            ->rawColumns(['action', 'image', 'type', 'status'])
+            ->rawColumns(['action', 'image', 'type', 'status', 'approve'])
             ->setRowId('id');
     }
 
@@ -80,7 +86,9 @@ class SellerProductsDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->where('vendor_id', '!=', Auth::user()->vendor->id)->newQuery();
+        return $model->where('vendor_id', '!=', Auth::user()->vendor->id)
+                ->where('is_approved', 1)
+                ->newQuery();
     }
 
     /**
@@ -112,12 +120,13 @@ class SellerProductsDataTable extends DataTable
     {
         return [
             Column::make('id')->width(10),
-            Column::make('name')->width(150),
+            Column::make('name')->width(100),
             Column::make('vendor')->width(80),
             Column::make('image')->width(80),
             Column::make('price')->width(100),
             Column::make('type')->width(50),
             Column::make('status')->width(70),
+            Column::make('approve')->width(100),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
