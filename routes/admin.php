@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\SellerProductController;
+use App\Http\Controllers\Backend\FlashSaleController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -53,3 +54,7 @@ Route::get('seller-products', [SellerProductController::class, 'index'])->name('
 Route::get('seller-pending-products', [SellerProductController::class, 'pending'])->name('seller-pending-products.index');
 Route::put('change-approve-status', [SellerProductController::class, 'changeApproveStatus'])->name('change-approve-status');
 
+// Flash Sale
+Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
+Route::put('flash-sale-update', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.addProduct');
