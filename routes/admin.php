@@ -56,5 +56,8 @@ Route::put('change-approve-status', [SellerProductController::class, 'changeAppr
 
 // Flash Sale
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
+Route::get('flash-sale-item/edit/{id}', [FlashSaleController::class, 'edit'])->name('flash-sale-item.edit');
 Route::put('flash-sale-update', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+Route::put('flash-sale-item-update/{flashSaleItemId}', [FlashSaleController::class, 'updateFlashSaleItem'])->name('flash-sale-item.update');
 Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.addProduct');
+Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');

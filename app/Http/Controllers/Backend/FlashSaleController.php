@@ -30,6 +30,25 @@ class FlashSaleController extends Controller
         return redirect()->back();
     }
 
+    public function updateFlashSaleItem(Request $request, String $id){
+        $request->validate([
+            'show_at_home' => ['required'],
+            'status' => ['required']
+        ]);
+
+        $flashSaleItem = FlashSaleItem::findOrFail($id);
+        $flashSaleItem->show_at_home = $request->show_at_home;
+        $flashSaleItem->status = $request->status;
+        $flashSaleItem->save();
+        toastr('Updated Successfully', 'success', 'success');
+        return redirect()->route('admin.flash-sale.index');
+    }
+
+    public function edit(String $id){
+        $flashSaleItem = FlashSaleItem::findOrFail($id);
+        return view('admin.flash-sale.edit', compact('flashSaleItem'));
+    }
+
     public function addProduct(Request $request){
         $request->validate([
             'product' => ['required'],
@@ -47,5 +66,13 @@ class FlashSaleController extends Controller
 
         toastr('Product Added Successfully', 'success', 'success');
         return redirect()->back();
+    }
+
+    public function destroy(String $id){
+        $flashSaleItem = FlashSaleItem::findOrFail($id);
+        $flashSaleItem->delete();
+
+        toastr('Deleted Successfully', 'success', 'success');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

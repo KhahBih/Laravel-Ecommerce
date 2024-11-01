@@ -22,7 +22,35 @@ class FlashSaleItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'flashsaleitem.action')
+            ->addColumn('product', function($query){
+                return $query->product->name;
+            })
+            ->addColumn('action', function($query){
+                $deleteBtn = "<a href='".route('admin.flash-sale.destroy', $query->id)."'
+                class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $editBtn = "<a href='".route('admin.flash-sale-item.edit', $query->id)."'
+                class='btn btn-primary' style='margin-left:2px!important'><i class='far fa-edit'></i></a>";
+                return $editBtn.$deleteBtn;
+            })
+            ->addColumn('show_at_home', function($query){
+                $yes = '<i class="badge bg-success">Yes</i>';
+                $no = '<i class="badge bg-danger">No</i>';
+                if($query->show_at_home == 1){
+                    return $yes;
+                }else{
+                    return $no;
+                }
+            })
+            ->addColumn('status', function($query){
+                $active = '<i class="badge bg-success">Active</i>';
+                $inActive = '<i class="badge bg-danger">Inactive</i>';
+                if($query->status == 1){
+                    return $active;
+                }else{
+                    return $inActive;
+                }
+            })
+            ->rawColumns(['show_at_home', 'status', 'action'])
             ->setRowId('id');
     }
 
@@ -62,15 +90,15 @@ class FlashSaleItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('product'),
+            Column::make('show_at_home'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(120)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
