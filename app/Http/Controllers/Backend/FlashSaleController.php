@@ -51,9 +51,11 @@ class FlashSaleController extends Controller
 
     public function addProduct(Request $request){
         $request->validate([
-            'product' => ['required'],
+            'product' => ['required', 'unique:flash_sale_items,product_id'],
             'show_at_home' => ['required'],
             'status' => ['required']
+        ], [
+            'product.unique' => 'The product is already in flash sale.'
         ]);
 
         $flashSaleDate = FlashSale::first();

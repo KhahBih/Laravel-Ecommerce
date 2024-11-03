@@ -162,7 +162,7 @@ class ProductController extends Controller
         $product->save();
 
         toastr('Updated Successfully!', 'success');
-        return redirect()->route('admin.products.index');
+        return redirect()->back();
     }
 
     /**
