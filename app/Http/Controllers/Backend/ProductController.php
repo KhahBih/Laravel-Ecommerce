@@ -55,7 +55,8 @@ class ProductController extends Controller
             'long_desc' => ['required'],
             'seo_title' => ['max:200', 'nullable'],
             'seo_desc' => ['max:1000', 'nullable'],
-            'status' => ['required']
+            'status' => ['required'],
+            'is_approved' => ['required']
         ]);
 
         // Handle image upload
@@ -65,7 +66,7 @@ class ProductController extends Controller
         $product->thumb_image = $imagePath;
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
-        // $product->vendor_id = Auth::user()->vendor->id;
+        $product->vendor_id = Auth::user()->vendor->id;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->child_category_id = $request->child_category;
@@ -75,6 +76,7 @@ class ProductController extends Controller
         $product->long_desc = $request->long_desc;
         $product->video_link = $request->video_link;
         $product->sku = $request->sku;
+        $product->is_approved = 1;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
@@ -140,7 +142,7 @@ class ProductController extends Controller
         $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image;
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
-        $product->vendor_id = Auth::user()->vendor->id;
+        // $product->vendor_id = Auth::user()->vendor->id;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->child_category_id = $request->child_category;
@@ -155,7 +157,7 @@ class ProductController extends Controller
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
-        $product->is_approved = 1;
+        $product->is_approved = 0;
         $product->seo_title = $request->seo_title;
         $product->seo_desc = $request->seo_desc;
         $product->status = $request->status;
