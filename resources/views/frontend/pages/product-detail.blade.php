@@ -177,14 +177,10 @@
                                         <i class="fas fa-play"></i>
                                     </a>
                                     <ul class='exzoom_img_ul'>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom1.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom2.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom3.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom4.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom1.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom2.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom1.jpg" alt="product"></li>
-                                        <li><img class="zoom ing-fluid w-100" src="images/zoom2.jpg" alt="product"></li>
+                                        <li><img class="zoom ing-fluid w-100" src="{{asset($product->thumb_image)}}" alt="product"></li>
+                                        @foreach ($product->imageGalleries as $image)
+                                            <li><img class="zoom ing-fluid w-100" src="{{asset($image->image)}}" alt="image-galerry"></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="exzoom_nav"></div>

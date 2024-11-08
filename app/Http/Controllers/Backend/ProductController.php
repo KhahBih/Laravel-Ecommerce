@@ -32,6 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        // SELECT * FROM categories
         $categories = Category::all();
         $brands = Brand::all();
         return view('admin.products.create', compact('categories', 'brands'));
@@ -104,7 +105,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id); // SELECT * FROM products WHERE id='$id';
         $categories = Category::all();
         $subCategories = SubCategory::where('category_id', $product->category_id)->get();
         $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
