@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
-use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\ProfileConatroller;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
