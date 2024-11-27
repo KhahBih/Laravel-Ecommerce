@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
-use App\Http\Controllers\Backend\ProfileConatroller;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
+use App\Http\Controllers\Backend\SettingController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -61,3 +62,6 @@ Route::put('flash-sale-update', [FlashSaleController::class, 'update'])->name('f
 Route::put('flash-sale-item-update/{flashSaleItemId}', [FlashSaleController::class, 'updateFlashSaleItem'])->name('flash-sale-item.update');
 Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.addProduct');
 Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');
+
+// Setting routes
+Route::get('settings', [SettingController::class, 'index'])->name('settings.index');

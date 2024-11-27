@@ -50,6 +50,7 @@
             <li class="{{setActive(['admin.seller-pending-products.*'])}}"><a class="nav-link" href="{{route('admin.seller-pending-products.index')}}">Pending Product</a></li>
           </ul>
         </li>
+        <li><a class="nav-link" href="{{route('admin.settings.index')}}"><i class="far fa-square"></i> <span>Brands</span></a></li>
       </ul>
     </aside>
   </div>
