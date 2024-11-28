@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\CouponController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -63,5 +64,9 @@ Route::put('flash-sale-item-update/{flashSaleItemId}', [FlashSaleController::cla
 Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.addProduct');
 Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');
 
+// Coupon routes
+Route::resource('coupons', CouponController::class);
+
 // Setting routes
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+Route::put('general-settings-update', [SettingController::class, 'generalSettingsUpdate'])->name('settings.update');

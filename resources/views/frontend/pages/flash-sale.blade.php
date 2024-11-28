@@ -64,7 +64,7 @@
                                 @if(checkDiscount($product))
                                     <span class="wsus__minus">-{{calculateDiscountPercent($product->price, $product->offer_price)}}%</span>
                                 @endif
-                                <a class="wsus__pro_link" href="product_details.html">
+                                <a class="wsus__pro_link" href="{{route('product-detail', $flashSaleItem->product->slug)}}">
                                     <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
                                     <img src="
                                     @if(isset($product->imageGalleries[0]->image))
@@ -90,11 +90,11 @@
                                         <i class="fas fa-star-half-alt"></i>
                                         <span>(133 review)</span>
                                     </p>
-                                    <a class="wsus__pro_name" href="#">{{$product->name}}</a>
+                                    <a class="wsus__pro_name" href="{{route('product-detail', $flashSaleItem->product->slug)}}">{{$product->name}}</a>
                                     @if(checkDiscount($product))
-                                        <p class="wsus__price">{{$product->offer_price}}đ <del>{{$product->price}}đ</del></p>
+                                        <p class="wsus__price">{{$product->offer_price}}{{$settings->currency_icon}} <del>{{$product->price}}{{$settings->currency_icon}}</del></p>
                                     @else
-                                        <p class="wsus__price">{{$product->price}}đ</p>
+                                        <p class="wsus__price">{{$product->price}}{{$settings->currency_icon}}</p>
                                     @endif
                                     <a class="add_cart" href="#">add to cart</a>
                                 </div>
@@ -117,8 +117,7 @@
             simplyCountdown('.simply-countdown-one', {
                 year: {{date('Y', strtotime($flashSaleDate->end_date))}},
                 month: {{date('m', strtotime($flashSaleDate->end_date))}},
-                day: {{date('d', strtotime($flashSaleDate->end_date))}},
-                enableUtc: true
+                day: {{date('d', strtotime($flashSaleDate->end_date))}}
             });
         })
     </script>

@@ -1,0 +1,79 @@
+@extends('admin.layouts.master')
+@section('content')
+    <section class="section">
+        <div class="section-header" style="padding-bottom: 0px!important">
+            <h1>Create Coupon</h1>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-body">
+                                <form action="{{route('admin.coupons.store')}}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="name" style="height:40px!important">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Code</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="code" style="height:40px!important">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantity</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="quantity" style="height:40px!important">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Max Use Per Person</label>
+                                        <input type="text" class="form-control" data-tribute="true" name="max_use" style="height:40px!important">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="text" class="form-control datepicker" data-tribute="true" name="start_date" style="height:40px!important">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="text" class="form-control datepicker" data-tribute="true" name="end_date" style="height:40px!important">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="inputState">Discount Type</label>
+                                                <select id="inputState" class="form-control" name="discount_type">
+                                                  <option selected="" value="percentage">Percentage (%)</option>
+                                                  <option value="amount">Amount ({{$settings->currency_icon}})</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="inputState">Discount Value</label>
+                                                <input type="text" class="form-control" data-tribute="true" name="discount_value" style="height:40px!important">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputState">Status</label>
+                                        <select id="inputState" class="form-control" name="status" style="height:40px!important">
+                                          <option selected="" value="1">Active</option>
+                                          <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
