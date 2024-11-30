@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ShippingRuleController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -66,6 +67,9 @@ Route::delete('flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name(
 
 // Coupon routes
 Route::resource('coupons', CouponController::class);
+
+// Shipping rule route
+Route::resource('shipping-rule', ShippingRuleController::class);
 
 // Setting routes
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
