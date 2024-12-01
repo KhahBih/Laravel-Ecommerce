@@ -10,6 +10,7 @@
                 <div class="col-12">
                     <div class="card">
                     <div class="card-header">
+                        <h4>All Shipping Rule</h4>
                         <div class="card-header-action">
                             <a href="{{route('admin.shipping-rule.create')}}" class="btn btn-primary">+ Add new</a>
                         </div>
