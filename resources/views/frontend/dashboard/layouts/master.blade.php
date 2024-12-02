@@ -104,6 +104,13 @@
   <script src="{{asset('frontend/js/main.js')}}"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script>
+    $(document).ready(function(){
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    })
     @if($errors->any())
         @foreach ($errors->all() as $error)
             toastr.error("{{$error}}");

@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\FrontendProductController;
+use App\Http\Controllers\Frontend\AddressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile', [UserProfileController::class, 'updatePassword'])->name('profile.update.password');
+    Route::get('/address/getDistrict', [AddressController::class, 'getDistrict'])->name('address.getDistrict');
+    Route::resource('/address', AddressController::class);
 });
 
 
