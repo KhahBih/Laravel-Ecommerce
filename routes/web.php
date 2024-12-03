@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::put('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile', [UserProfileController::class, 'updatePassword'])->name('profile.update.password');
     Route::get('/address/getDistrict', [AddressController::class, 'getDistrict'])->name('address.getDistrict');
+    Route::get('/address/getWard', [AddressController::class, 'getWard'])->name('address.getWard');
     Route::resource('/address', AddressController::class);
 });
 

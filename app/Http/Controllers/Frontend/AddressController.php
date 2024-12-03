@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
 use App\Models\District;
+use App\Models\Province;
+use App\Models\UserAddress;
+use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -14,7 +17,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        return view('frontend.dashboard.address.index');
+        $addresses = UserAddress::where('user_id', Auth::user()->id)->get();
+        return view('frontend.dashboard.address.index', compact('addresses'));
     }
 
     /**
@@ -22,7 +26,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
+        $cities = Province::all();
         return view('frontend.dashboard.address.create', compact('cities'));
     }
 
@@ -31,7 +35,31 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'address_name' => ['required', 'max:200'],
+            'email' => ['required', 'max:200'],
+            'phone' => ['required', 'max:200'],
+            'province' => ['required', 'max:200'],
+            'district' => ['required', 'max:200'],
+            'ward' => ['required', 'max:200'],
+            'zip_code' => ['required', 'max:200'],
+            'address' => ['required', 'max:200'],
+        ]);
+
+        $address = new UserAddress();
+        $address->name = $request->address_name;
+        $address->email = $request->email;
+        $address->phone = $request->phone;
+        $address->province = $request->province;
+        $address->district = $request->district;
+        $address->ward = $request->ward;
+        $address->zip_code = $request->zip_code;
+        $address->detail_address = $request->address;
+        $address->user_id = Auth::user()->id;
+        $address->save();
+
+        toastr('Created Successfully!', 'success', 'success');
+        return redirect()->route('user.address.index');
     }
 
     /**
@@ -47,7 +75,12 @@ class AddressController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cities = Province::all();
+        $address = UserAddress::findOrFail($id)->get();
+        $districts = District::all();
+        $wards = Ward::all();
+        // return view('frontend.dashboard.address.edit', compact('address', 'cities', 'districts', 'wards'));
+        dd($address);
     }
 
     /**
@@ -55,7 +88,30 @@ class AddressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'address_name' => ['required', 'max:200'],
+            'email' => ['required', 'max:200'],
+            'phone' => ['required', 'max:200'],
+            'province' => ['required', 'max:200'],
+            'district' => ['required', 'max:200'],
+            'ward' => ['required', 'max:200'],
+            'zip_code' => ['required', 'max:200'],
+            'address' => ['required', 'max:200'],
+        ]);
+
+        $address = UserAddress::findOrFail($id);
+        $address->name = $request->address_name;
+        $address->email = $request->email;
+        $address->phone = $request->phone;
+        $address->province = $request->province;
+        $address->district = $request->district;
+        $address->ward = $request->ward;
+        $address->zip_code = $request->zip_code;
+        $address->detail_address = $request->address;
+        $address->save();
+
+        toastr('Updated Successfully!', 'success', 'success');
+        return redirect()->route('user.address.index');
     }
 
     /**
@@ -68,7 +124,19 @@ class AddressController extends Controller
 
     public function getDistrict(Request $request)
     {
-        $districts = District::where('city_id', $request->id)->get();
+        $districts = District::where('province_code', $request->id)->get();
+        return $districts;
+    }
+
+    public function getDistrictForEdit(Request $request)
+    {
+        $district = District::where('province_code', $request->id)->get();
+        return $district;
+    }
+
+    public function getWard(Request $request)
+    {
+        $districts = Ward::where('district_code', $request->id)->get();
         return $districts;
     }
 }
