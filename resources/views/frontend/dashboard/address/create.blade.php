@@ -37,7 +37,7 @@
                             <select class="select_2 province" name="province" id="province">
                                 <option value="">Select</option>
                                 @foreach ($cities as $city)
-                                    <option value="{{$city->code}}">{{$city->name}}</option>
+                                    <option value="{{$city->id}}">{{$city->full_name}}</option>
                                 @endforeach
                             </select>
                           </div>
@@ -103,7 +103,7 @@
                         success: function(data){
                             $('.district').html('<option value="">Select</option>');
                             $.each(data, function(i, item){
-                                $('.district').append(`<option value="${item.code}">${item.full_name}</option>`)
+                                $('.district').append(`<option value="${item.id}">${item.full_name}</option>`)
                             });
                         },
                         error: function(xhr, status, error){
@@ -112,6 +112,48 @@
                 })
             })
             $('body').on('change', '.district', function(e){
+                e.preventDefault();
+                let id = $(this).val();
+                let url = "{{route('user.address.getWard')}}";
+                $.ajax({
+                        method: 'GET',
+                        url: url,
+                        data: {
+                            id:id
+                        },
+                        success: function(data){
+                            $('.ward').html('<option value="">Select</option>');
+                            $.each(data, function(i, item){
+                                $('.ward').append(`<option value="${item.id}">${item.full_name}</option>`)
+                            });
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+                })
+            })
+            $('body').on('input', '.province', function(e){
+                e.preventDefault();
+                let id = $(this).val();
+                let url = "{{route('user.address.getDistrict')}}";
+                $.ajax({
+                        method: 'GET',
+                        url: url,
+                        data: {
+                            id:id
+                        },
+                        success: function(data){
+                            $('.district').html('<option value="">Select</option>');
+                            $.each(data, function(i, item){
+                                $('.district').append(`<option value="${item.code}">${item.full_name}</option>`)
+                            });
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+                })
+            })
+            $('body').on('input', '.district', function(e){
                 e.preventDefault();
                 let id = $(this).val();
                 let url = "{{route('user.address.getWard')}}";

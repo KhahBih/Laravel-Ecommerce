@@ -18,9 +18,27 @@
                                     <li><span>Tên địa chỉ :</span> {{$address->name}}</li>
                                     <li><span>Số điện thoại :</span> +{{$address->phone}}</li>
                                     <li><span>email :</span> {{$address->email}}</li>
-                                    <li><span>Tỉnh/Thành phố :</span> {{$address->province->full_name}}</li>
-                                    <li><span>Quận/Huyện :</span> {{$address->district}}</li>
-                                    <li><span>Phường/Xã :</span> {{$address->ward}}</li>
+                                    <li><span>Tỉnh/Thành phố :</span>
+                                        @foreach ($provinces as $province)
+                                            @if ($address->province == $province->code)
+                                                {{$province->full_name}}
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li><span>Quận/Huyện :</span>
+                                        @foreach ($districts as $district)
+                                            @if ($address->district == $district->code)
+                                                {{$district->full_name}}
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li><span>Phường/Xã :</span>
+                                        @foreach ($wards as $ward)
+                                            @if ($address->ward == $ward->code)
+                                                {{$ward->full_name}}
+                                            @endif
+                                        @endforeach
+                                    </li>
                                     <li><span>Mã Zip :</span> {{$address->zip_code}}</li>
                                     <li><span>Địa chỉ chi tiết :</span> {{$address->detail_address}}</li>
                                 </ul>

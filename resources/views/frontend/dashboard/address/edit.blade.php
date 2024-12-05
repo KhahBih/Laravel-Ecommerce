@@ -16,19 +16,19 @@
                       <div class="col-xl-6 col-md-6">
                         <div class="wsus__add_address_single">
                           <label>Tên địa chỉ <b>*</b></label>
-                          <input type="text" placeholder="Tên địa chỉ" name="address_name" value="{{$address->name}}">
+                          <input type="text" placeholder="Tên địa chỉ" name="address_name" value="{{$address->name}}" autocomplete="off">
                         </div>
                       </div>
                       <div class="col-xl-6 col-md-6">
                         <div class="wsus__add_address_single">
                           <label>email <b>*</b></label>
-                          <input type="email" placeholder="Email" name="email" value="{{$address->email}}">
+                          <input type="email" placeholder="Email" name="email" value="{{$address->email}}" autocomplete="off">
                         </div>
                       </div>
                       <div class="col-xl-6 col-md-6">
                         <div class="wsus__add_address_single">
                           <label>Số điện thoại <b>*</b></label>
-                          <input type="text" placeholder="Số điện thoại" name="phone" value="{{$address->phone}}">
+                          <input type="text" placeholder="Số điện thoại" name="phone" value="{{$address->phone}}" autocomplete="off">
                         </div>
                       </div>
                       <div class="col-xl-6 col-md-6">
@@ -39,7 +39,7 @@
                                 <option value="">Select</option>
                                 @foreach ($cities as $city)
                                     <option {{$address->province == $city->code ? 'selected' : ''}}
-                                        value="{{$city->code}}">{{$city->name}}</option>
+                                        value="{{$city->code}}">{{$city->full_name}}</option>
                                 @endforeach
                             </select>
                           </div>
@@ -85,7 +85,7 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <button type="submit" class="common_btn">Create</button>
+                        <button type="submit" class="common_btn">Update</button>
                       </div>
                     </div>
                   </form>
@@ -99,6 +99,7 @@
 @push('scripts')
     <script>
         $(document).ready(function(){
+            alert('Plz dont use autocomplete or autofill :(((')
             $('body').on('change', '.province', function(e){
                 e.preventDefault();
                 let id = $(this).val();

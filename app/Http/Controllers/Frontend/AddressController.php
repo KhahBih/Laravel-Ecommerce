@@ -18,7 +18,10 @@ class AddressController extends Controller
     public function index()
     {
         $addresses = UserAddress::where('user_id', Auth::user()->id)->get();
-        return view('frontend.dashboard.address.index', compact('addresses'));
+        $provinces = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
+        return view('frontend.dashboard.address.index', compact('addresses', 'provinces', 'districts', 'wards'));
     }
 
     /**
@@ -76,11 +79,10 @@ class AddressController extends Controller
     public function edit(string $id)
     {
         $cities = Province::all();
-        $address = UserAddress::findOrFail($id)->get();
+        $address = UserAddress::findOrFail($id);
         $districts = District::all();
         $wards = Ward::all();
-        // return view('frontend.dashboard.address.edit', compact('address', 'cities', 'districts', 'wards'));
-        dd($address);
+        return view('frontend.dashboard.address.edit', compact('address', 'cities', 'districts', 'wards'));
     }
 
     /**
@@ -119,19 +121,16 @@ class AddressController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $address = UserAddress::findOrFail($id);
+        $address->delete();
+        toastr('Deleted Successfully!', 'success', 'success');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
     public function getDistrict(Request $request)
     {
         $districts = District::where('province_code', $request->id)->get();
         return $districts;
-    }
-
-    public function getDistrictForEdit(Request $request)
-    {
-        $district = District::where('province_code', $request->id)->get();
-        return $district;
     }
 
     public function getWard(Request $request)

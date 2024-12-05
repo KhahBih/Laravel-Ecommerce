@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Ward extends Model
 {
     use HasFactory;
-    protected $table = "wards";
-    public function district(){
-        return $this->belongsTo(District::class);
-    }
 }
