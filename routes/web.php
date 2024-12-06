@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\AddressController;
+use App\Http\Controllers\Frontend\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,7 @@ require __DIR__.'/auth.php';
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 Route::get('product-detail/{slug}', [FrontendProductController::class, 'showProduct'])->name('product-detail');
+Route::post('/product-detail/add-to-card', [CartController::class, 'addToCard'])->name('add-to-cart');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
