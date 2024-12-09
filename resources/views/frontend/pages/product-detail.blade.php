@@ -1,4 +1,4 @@
-@extends('frontend.dashboard.layouts.master')
+@extends('frontend.layouts.master')
 @section('content')
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
@@ -221,13 +221,15 @@
                                 <h5>offer ending time : </h5>
                                 <div class="simply-countdown simply-countdown-one"></div>
                             </div>
-                            <form class="shopping-cart-form">
+                            <form class="shopping-cart-form ajax-form" action="{{ route('add-to-cart') }}" method="POST">
+                                @csrf
                                 <div class="wsus__selectbox">
                                     <div class="row">
+                                        <input type="hidden" name="product_id" value={{$product->id}}>
                                         @foreach ($product->variants as $variant)
                                             <div class="col-xl-6 col-sm-6">
                                                 <h5 class="mb-2">{{$variant->name}}:</h5>
-                                                <select class="select_2" name="variants[]">
+                                                <select class="select_2" name="variant_items[]">
                                                     <option value="">Select</option>
                                                     @foreach ($variant->productVariantItems as $variantItem)
                                                         <option {{$variantItem->is_default == 1 ? 'selected' : ''}} value="{{$variantItem->id}}">
@@ -755,23 +757,22 @@
 @push('scripts')
     <script>
         $(document).ready(function(){
-            $('body').on('submit', '.shopping-cart-form', function(e){
-                e.preventDefault();
-                let formData = $(this).serialize();
-                console.log(formData);
+            $('body').on('submit', '.shopping-cart-form', function(e) {
+            e.preventDefault();
+            let formData = $(this).serialize();
 
-                $.ajax({
-                    method: POST,
-                    data: formData,
-                    url: "{{route('add-to-cart')}}",
-                    success: function(data){
+            $.ajax({
+                method: 'POST',
+                data: formData,
+                url: "{{ route('add-to-cart') }}",
+                success: function(data) {
 
-                    }
-                    error: function(data){
+                },
+                error: function(data) {
 
-                    }
-                })
+                }
             })
+        })
         })
     </script>
 @endpush
