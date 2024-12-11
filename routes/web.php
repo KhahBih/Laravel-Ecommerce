@@ -36,7 +36,11 @@ require __DIR__.'/auth.php';
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 Route::get('product-detail/{slug}', [FrontendProductController::class, 'showProduct'])->name('product-detail');
+
+// Cart routes
 Route::post('/add-to-card', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('/cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
+Route::post('/update-quantity', [CartController::class, 'updateQuantity'])->name('update-quantity');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');

@@ -1,4 +1,5 @@
 @extends('frontend.layouts.master')
+@section('title') {{$product->name}} - {{$settings->site_name}} @endsection
 @section('content')
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
@@ -233,7 +234,7 @@
                                                     <option value="">Select</option>
                                                     @foreach ($variant->productVariantItems as $variantItem)
                                                         <option {{$variantItem->is_default == 1 ? 'selected' : ''}} value="{{$variantItem->id}}">
-                                                            {{$variantItem->name}}
+                                                            {{$variantItem->name}} ({{$variantItem->price}}{{$generalSetting->currency_icon}})
                                                         </option>
                                                     @endforeach
                                                 </select>

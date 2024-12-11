@@ -84,21 +84,13 @@
                                                 <img class="zoom ing-fluid w-100" src="{{asset($product->thumb_image)}}" alt="product">
                                             </div>
                                         </div>
-                                        <div class="col-xl-12">
-                                            <div class="modal_slider_img">
-                                                <img src="images/zoom2.jpg" alt="product" class="img-fluid w-100">
+                                        @foreach ($product->imageGalleries as $image)
+                                            <div class="col-xl-12">
+                                                <div class="modal_slider_img">
+                                                    <img src="{{asset($image->image)}}" alt="{{$product->name}}" class="img-fluid w-100">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xl-12">
-                                            <div class="modal_slider_img">
-                                                <img src="images/zoom3.jpg" alt="product" class="img-fluid w-100">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-12">
-                                            <div class="modal_slider_img">
-                                                <img src="images/zoom4.jpg" alt="product" class="img-fluid w-100">
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +119,7 @@
                                         <h5>offer ending time : </h5>
                                         <div class="simply-countdown simply-countdown-one"></div>
                                     </div>
-                                    <div class="wsus_pro_det_color">
+                                    {{-- <div class="wsus_pro_det_color">
                                         <h5>color :</h5>
                                         <ul>
                                             <li><a class="blue" href="#"><i class="far fa-check"></i></a></li>
@@ -145,36 +137,29 @@
                                             <li><a href="#">L</a></li>
                                             <li><a href="#">XL</a></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                     <div class="wsus__quentity">
-                                        <h5>quentity :</h5>
+                                        <h5>quantity :</h5>
                                         <form class="select_number">
                                             <input class="number_area" type="text" min="1" max="100" value="1" />
                                         </form>
-                                        <h3>$50.00</h3>
                                     </div>
                                     <div class="wsus__selectbox">
                                         <div class="row">
-                                            <div class="col-xl-6 col-sm-6">
-                                                <h5 class="mb-2">select:</h5>
-                                                <select class="select_2" name="state">
-                                                    <option>default select</option>
-                                                    <option>select 1</option>
-                                                    <option>select 2</option>
-                                                    <option>select 3</option>
-                                                    <option>select 4</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-xl-6 col-sm-6">
-                                                <h5 class="mb-2">select:</h5>
-                                                <select class="select_2" name="state">
-                                                    <option>default select</option>
-                                                    <option>select 1</option>
-                                                    <option>select 2</option>
-                                                    <option>select 3</option>
-                                                    <option>select 4</option>
-                                                </select>
-                                            </div>
+                                            <input type="hidden" name="product_id" value={{$product->id}}>
+                                            @foreach ($product->variants as $variant)
+                                                <div class="col-xl-6 col-sm-6">
+                                                    <h5 class="mb-2">{{$variant->name}}:</h5>
+                                                    <select class="select_2" name="variant_items[]">
+                                                        <option value="">Select</option>
+                                                        @foreach ($variant->productVariantItems as $variantItem)
+                                                            <option {{$variantItem->is_default == 1 ? 'selected' : ''}} value="{{$variantItem->id}}">
+                                                                {{$variantItem->name}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <ul class="wsus__button_area">
@@ -184,16 +169,7 @@
                                         <li><a href="#"><i class="far fa-random"></i></a></li>
                                     </ul>
                                     <p class="brand_model"><span>model :</span> 12345670</p>
-                                    <p class="brand_model"><span>brand :</span> The Northland</p>
-                                    <div class="wsus__pro_det_share">
-                                        <h5>share :</h5>
-                                        <ul class="d-flex">
-                                            <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a class="whatsapp" href="#"><i class="fab fa-whatsapp"></i></a></li>
-                                            <li><a class="instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-                                        </ul>
-                                    </div>
+                                    <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
                                 </div>
                             </div>
                         </div>

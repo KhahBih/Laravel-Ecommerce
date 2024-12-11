@@ -9530,3 +9530,14 @@ a:not([href]):not([class]):hover {
 .form-control.cheight{
     height: 40px!important;
 }
+
+.product_qty_wrapper{
+    display: flex;
+}
+
+.product-qty{
+    width: 43px;
+    height: 36px;
+    padding-left: 5px;
+    margin: 0 5px;
+}
