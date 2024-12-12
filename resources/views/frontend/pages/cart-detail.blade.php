@@ -77,7 +77,7 @@
                                                 <div class="product_qty_wrapper">
                                                     <button class="btn btn-danger decrement">-</button>
                                                     <input class="product-qty" data-rowid="{{$item->rowId}}"
-                                                    type="text" min="1" max="100" value="1" />
+                                                    type="text" min="1" max="100" value="{{$item->qty}}" />
                                                     <button class="btn btn-success increment">+</button>
                                                 </div>
                                             </td>
@@ -87,7 +87,9 @@
                                             </td>
 
                                             <td class="wsus__pro_tk">
-                                                <h6>{{$item->options->variants_total + $item->price.$settings->currency_icon}}</h6>
+                                                <h6 id="{{$item->rowId}}">
+                                                    {{(($item->options->variants_total + $item->price) * $item->qty).$settings->currency_icon}}
+                                                </h6>
                                             </td>
 
                                             <td class="wsus__pro_icon">
@@ -170,9 +172,9 @@
                         quantity: quantity
                     },
                     success: function(data){
-                        // if(data.status == 'success'){
-                        //     toastr.success('Product Quantity Update Successully!');
-                        // }
+                        let productId = '#'+rowId;
+                        let total = data.product_total+data.currencyIcon;
+                        $(productId).text(total);
                     },
                     error: function(data){
 
@@ -184,8 +186,24 @@
                 let input = $(this).siblings('.product-qty');
                 if(input.val() > 1){
                     let quantity = parseInt(input.val()) - 1;
+                    let rowId = input.data('rowid');
                     input.val(quantity);
-                    console.log(quantity);
+                    $.ajax({
+                        url: "{{route('update-quantity')}}",
+                        method: 'POST',
+                        data: {
+                            rowId: rowId,
+                            quantity: quantity
+                        },
+                        success: function(data){
+                            let productId = '#'+rowId;
+                            let total = data.product_total+data.currencyIcon;
+                            $(productId).text(total);
+                        },
+                        error: function(data){
+
+                        }
+                    })
                 }
             })
         })

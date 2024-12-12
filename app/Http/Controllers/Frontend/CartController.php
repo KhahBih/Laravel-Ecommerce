@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneralSetting;
 use App\Models\Product;
 use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
@@ -50,6 +51,14 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request){
         Cart::update($request->rowId, $request->quantity);
-        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
+        $productTotal = $this->getProductTotal($request->rowId);
+        $currencyIcon = GeneralSetting::first();
+        return response(['status' => 'success', 'message' => 'Updated Successfully!', 'product_total' => $productTotal, 'currencyIcon' => $currencyIcon->currency_icon]);
+    }
+
+    public function getProductTotal($rowId){
+        $product = Cart::get($rowId);
+        $total = ($product->price + $product->options->variants_total) * $product->qty;
+        return $total;
     }
 }
