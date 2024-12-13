@@ -1,4 +1,4 @@
-@extends('frontend.dashboard.layouts.master')
+@extends('frontend.layouts.master')
 @section('content')
     <!--============================
         BREADCRUMB START
@@ -57,7 +57,7 @@
                                         </th>
 
                                         <th class="wsus__pro_icon">
-                                            <a href="#" class="common_btn">clear cart</a>
+                                            <a href="#" class="common_btn clear_cart">clear cart</a>
                                         </th>
                                     </tr>
                                     @foreach ($cartItems as $item)
@@ -93,10 +93,17 @@
                                             </td>
 
                                             <td class="wsus__pro_icon">
-                                                <a href="#"><i class="far fa-times"></i></a>
+                                                <a href="{{route('cart.remove-product', $item->rowId)}}"><i class="far fa-times"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($cartItems) === 0)
+                                        <tr class="d-flex" style="justify-content: center!important;">
+                                            <td class="wsus__pro_icon">
+                                                Cart is empty
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -206,6 +213,36 @@
                     })
                 }
             })
+
+            $('.clear_cart').on('click', function(e){
+                e.preventDefault();
+                Swal.fire({
+                title: "Are you sure?",
+                text: "This action wil clear your cart!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, clear it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{route('clear-cart')}}",
+                            success: function(data){
+                                if(data.status == 'success'){
+                                    window.location.reload();
+                                }else if(data.status == 'error'){
+
+                                }
+                            },
+                            error: function(xhr, status, error){
+                                console.log(error);
+                            }
+                        });
+                    }
+                });
+            });
         })
     </script>
 @endpush

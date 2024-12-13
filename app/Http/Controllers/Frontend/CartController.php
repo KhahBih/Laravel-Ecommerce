@@ -61,4 +61,18 @@ class CartController extends Controller
         $total = ($product->price + $product->options->variants_total) * $product->qty;
         return $total;
     }
+
+    public function clearCart(){
+        Cart::destroy();
+        return response(['status' => 'success', 'message' => 'Cart Cleared Successfully!']);
+    }
+
+    public function removeProduct($rowId){
+        Cart::remove($rowId);
+        return redirect()->route('cart-details');
+    }
+
+    public function getCartCount(){
+        return Cart::content()->count();
+    }
 }

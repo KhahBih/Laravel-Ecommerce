@@ -41,6 +41,9 @@ Route::get('product-detail/{slug}', [FrontendProductController::class, 'showProd
 Route::post('/add-to-card', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('/cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::post('/update-quantity', [CartController::class, 'updateQuantity'])->name('update-quantity');
+Route::get('clear-cart', [CartController::class, 'clearCart'])->name('clear-cart');
+Route::get('cart/remove-product/{rowId}', [CartController::class, 'removeProduct'])->name('cart.remove-product');
+Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-count');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');

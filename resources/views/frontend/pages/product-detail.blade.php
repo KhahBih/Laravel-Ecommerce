@@ -767,12 +767,26 @@
                 data: formData,
                 url: "{{ route('add-to-cart') }}",
                 success: function(data) {
-
+                    getCartCount();
+                    toastr.success(data.message);
                 },
                 error: function(data) {
 
                 }
             })
+
+            function getCartCount() {
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('cart-count') }}",
+                    success: function(data) {
+                        $('#cart-count').text(data);
+                    },
+                    error: function(data) {
+
+                    }
+                })
+            }
         })
         })
     </script>
