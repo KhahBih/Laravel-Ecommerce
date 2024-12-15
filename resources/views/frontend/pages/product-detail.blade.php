@@ -759,20 +759,22 @@
     <script>
         $(document).ready(function(){
             $('body').on('submit', '.shopping-cart-form', function(e) {
-            e.preventDefault();
-            let formData = $(this).serialize();
+                e.preventDefault();
+                let formData = $(this).serialize();
 
-            $.ajax({
-                method: 'POST',
-                data: formData,
-                url: "{{ route('add-to-cart') }}",
-                success: function(data) {
-                    getCartCount();
-                    toastr.success(data.message);
-                },
-                error: function(data) {
+                $.ajax({
+                    method: 'POST',
+                    data: formData,
+                    url: "{{ route('add-to-cart') }}",
+                    success: function(data) {
+                        getCartCount();
+                        fetchSidebarCartProducts();
+                        toastr.success(data.message);
+                    },
+                    error: function(data) {
 
-                }
+                    }
+                })
             })
 
             function getCartCount() {
@@ -787,7 +789,53 @@
                     }
                 })
             }
+            function fetchSidebarCartProducts(){
+                    $.ajax({
+                        url: "{{route('cart-products')}}",
+                        method: 'GET',
+                        success: function(data){
+                            $('.mini_cart_wrapper').html("");
+                            var html = "";
+                            for(let item in data){
+                                let product = data[item]
+                                html += `<li>
+                                    <div class="wsus__cart_img">
+                                        <a href="{{url('product-detail/')}}/${product.options.slug}">${product.name}">
+                                            <img src="{{asset('/')}}${product.options.image}" alt="product" class="img-fluid w-100"></a>
+                                        <a class="wsis__del_icon remove_sidebar_product" data-rowId="${product.rowId}" href="">
+                                            <i class="fas fa-minus-circle"></i></a>
+                                    </div>
+                                    <div class="wsus__cart_text">
+                                        <a class="wsus__cart_title" href="{{url('product-detail/')}}/${product.options.slug}">${product.name}</a>
+                                        <p>${product.price}{{$settings->currency_icon}}</p>
+                                    </div>
+                                </li>`
+                            }
+                            $('.mini_cart_wrapper').html(html);
+                        },
+                        error: function(data){
+
+                        }
+                    })
+            }
+            $('body').on('click', '.remove_sidebar_product', function(e) {
+                e.preventDefault();
+                let rowId = $(this).data('rowId')
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('cart.remove-sidebar-product')}}",
+                    data:{
+                        rowId: rowId
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+
+                    }
+                })
+            })
         })
-        })
+
     </script>
 @endpush

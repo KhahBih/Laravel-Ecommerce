@@ -72,7 +72,15 @@ class CartController extends Controller
         return redirect()->route('cart-details');
     }
 
+    public function removeSidebarProduct(Request $request){
+        dd($request->all());
+    }
+
     public function getCartCount(){
         return Cart::content()->count();
+    }
+
+    public function getCartProducts(){
+        return Cart::content();
     }
 }
