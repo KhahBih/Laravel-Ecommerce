@@ -1,3 +1,11 @@
+<?php
+    foreach (Cart::content() as $product) {
+        $total = 0;
+        $price = ($product->price + $product->options->variants_total) * $product->qty;
+        $total += $price;
+    }
+    return $total;
+?>
 <header>
     <div class="container">
         <div class="row">
@@ -46,10 +54,10 @@
         <h4>shopping cart <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span></h4>
         <ul class="mini_cart_wrapper">
             @foreach (Cart::content() as $sidebarProduct)
-                <li>
+                <li id="mini_cart_{{$sidebarProduct->rowId}}">
                     <div class="wsus__cart_img">
                         <a href="#"><img src="{{asset($sidebarProduct->options->image)}}" alt="product" class="img-fluid w-100"></a>
-                        <a class="wsis__del_icon remove_sidebar_product" data-rowId="{{$sidebarProduct->rowId}}"
+                        <a class="wsis__del_icon remove_sidebar_product" data-rowid="{{$sidebarProduct->rowId}}"
                             href="#"><i class="fas fa-minus-circle"></i></a>
                     </div>
                     <div class="wsus__cart_text">
@@ -60,12 +68,19 @@
                     </div>
                 </li>
             @endforeach
-
+            @if (Cart::content()->count() == 0)
+                <li class="text-center">Cart is empty!</li>
+            @endif
         </ul>
-        <h5>sub total <span>$3540</span></h5>
-        <div class="wsus__minicart_btn_area">
-            <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
-            <a class="common_btn" href="check_out.html">checkout</a>
-        </div>
+            <div class="mini_cart_actions {{Cart::content()->count() == 0 ? 'd-none' : ''}}">
+                <h5 id="mini_cart_subtotal">sub total <span>
+
+                    {{$settings->currency_icon}}</span></h5>
+                <div class="wsus__minicart_btn_area">
+                    <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
+                    <a class="common_btn" href="check_out.html">checkout</a>
+                </div>
+            </div>
     </div>
 </header>
+

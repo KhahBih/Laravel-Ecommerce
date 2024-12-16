@@ -73,7 +73,8 @@ class CartController extends Controller
     }
 
     public function removeSidebarProduct(Request $request){
-        dd($request->all());
+        Cart::remove($request->rowId);
+        return response(['status' => 'success', 'message' => 'Removed Product Successfully!', 'rowId' => $request->rowId]);
     }
 
     public function getCartCount(){
@@ -82,5 +83,13 @@ class CartController extends Controller
 
     public function getCartProducts(){
         return Cart::content();
+    }
+
+    public function getCartTotal(){
+        $total = 0;
+        foreach(Cart::content() as $product){
+            $total += $this->getProductTotal($product->rowId);
+        }
+        return $total;
     }
 }
