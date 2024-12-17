@@ -1,11 +1,3 @@
-<?php
-    foreach (Cart::content() as $product) {
-        $total = 0;
-        $price = ($product->price + $product->options->variants_total) * $product->qty;
-        $total += $price;
-    }
-    return $total;
-?>
 <header>
     <div class="container">
         <div class="row">
@@ -60,11 +52,15 @@
                         <a class="wsis__del_icon remove_sidebar_product" data-rowid="{{$sidebarProduct->rowId}}"
                             href="#"><i class="fas fa-minus-circle"></i></a>
                     </div>
-                    <div class="wsus__cart_text">
+                    <div class="wsus__cart_text" style="display: flex!important; flex-direction: column!important">
                         <a class="wsus__cart_title" href="{{route('product-detail', $sidebarProduct->options->slug)}}">
                             {{$sidebarProduct->name}}</a>
-                        <p>{{(($sidebarProduct->price + $sidebarProduct->options->variants_total) * $sidebarProduct->qty)
+                        <p style="font-weight: 300!important; font-size: 15px!important;">Total price: {{(($sidebarProduct->price + $sidebarProduct->options->variants_total) * $sidebarProduct->qty)
                         .$settings->currency_icon;}}</p>
+                        @if($sidebarProduct->options->variants)
+                            <small>Variant price: {{$sidebarProduct->options->variants_total}}{{$settings->currency_icon}}</small>
+                        @endif
+                        <small>Quantity: {{$sidebarProduct->qty}}</small>
                     </div>
                 </li>
             @endforeach
