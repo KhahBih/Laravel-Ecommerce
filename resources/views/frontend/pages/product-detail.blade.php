@@ -199,7 +199,11 @@
                     <div class="col-xl-5 col-md-7 col-lg-7">
                         <div class="wsus__pro_details_text">
                             <a class="title" href="javacript:;">{{$product->name}}</a>
-                            <p class="wsus__stock_area"><span class="in_stock">in stock</span> ({{$product->quantity}} item)</p>
+                            @if ($product->quantity == 0)
+                                <p class="wsus__stock_area"><span class="btn btn-danger">Stock Out</span></p>
+                            @else
+                                <p class="wsus__stock_area"><span class="in_stock">in stock</span> ({{$product->quantity}} item)</p>
+                            @endif
                             @if (checkDiscount($product))
                                 <h4>{{$product->offer_price}}đ<del>{{$product->price}}đ</del></h4>
                             @else
@@ -228,17 +232,21 @@
                                     <div class="row">
                                         <input type="hidden" name="product_id" value={{$product->id}}>
                                         @foreach ($product->variants as $variant)
-                                            <div class="col-xl-6 col-sm-6">
-                                                <h5 class="mb-2">{{$variant->name}}:</h5>
-                                                <select class="select_2" name="variant_items[]">
-                                                    <option value="">Select</option>
-                                                    @foreach ($variant->productVariantItems as $variantItem)
-                                                        <option {{$variantItem->is_default == 1 ? 'selected' : ''}} value="{{$variantItem->id}}">
-                                                            {{$variantItem->name}} ({{$variantItem->price}}{{$generalSetting->currency_icon}})
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            @if ($variant->status == 1)
+                                                <div class="col-xl-6 col-sm-6">
+                                                    <h5 class="mb-2">{{$variant->name}}:</h5>
+                                                    <select class="select_2" name="variant_items[]">
+                                                        <option value="">Select</option>
+                                                        @foreach ($variant->productVariantItems as $variantItem)
+                                                            @if($variantItem->status == 1)
+                                                                <option {{$variantItem->is_default == 1 ? 'selected' : ''}} value="{{$variantItem->id}}">
+                                                                    {{$variantItem->name}} ({{$variantItem->price}}{{$generalSetting->currency_icon}})
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -251,8 +259,8 @@
                                 </div>
 
                                 <ul class="wsus__button_area">
-                                    <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
-                                    <li><a class="buy_now" href="#">buy now</a></li>
+                                    <li><button {{$product->quantity == 0 ? 'disabled' : ''}} type="submit" class="add_cart" href="#">add to cart</button></li>
+                                    <li><button {{$product->quantity == 0 ? 'disabled' : ''}} class="buy_now" href="#">buy now</button></li>
                                     <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                     <li><a href="#"><i class="far fa-random"></i></a></li>
                                 </ul>

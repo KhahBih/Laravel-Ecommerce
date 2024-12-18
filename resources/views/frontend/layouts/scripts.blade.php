@@ -10,11 +10,15 @@
                     data: formData,
                     url: "{{ route('add-to-cart') }}",
                     success: function(data) {
-                        getCartCount();
-                        fetchSidebarCartProducts();
-                        getSidebarCartSubtotal();
-                        $('.mini_cart_actions').removeClass('d-none')
-                        toastr.success(data.message);
+                        if(data.status == 'success'){
+                            getCartCount();
+                            fetchSidebarCartProducts();
+                            getSidebarCartSubtotal();
+                            $('.mini_cart_actions').removeClass('d-none')
+                            toastr.success(data.message);
+                        }else{
+                            toastr.error(data.message);
+                        }
                     },
                     error: function(data) {
 
@@ -71,6 +75,7 @@
                             for(let item in data){
                                 let product = data[item]
                                 let price = (product.price + product.options.variants_total) * product.qty
+                                let variantsPrice = product.options.variants_total
                                 html += `<li id="mini_cart_${product.rowId}">
                                     <div class="wsus__cart_img">
                                         <a href="">
@@ -80,7 +85,9 @@
                                     </div>
                                     <div class="wsus__cart_text">
                                         <a class="wsus__cart_title" href="{{url('product-detail/')}}/${product.options.slug}">${product.name}</a>
-                                        <p>${price}{{$settings->currency_icon}}</p>
+                                        <p style="font-weight: 300!important; font-size: 15px!important;">Total price: ${price}{{$settings->currency_icon}}</p>
+                                        <small>Variant price: ${variantsPrice}{{$settings->currency_icon}}</small>
+                                        <small>Quantity: ${product.qty}</small>
                                     </div>
                                 </li>`
                             }

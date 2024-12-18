@@ -12,6 +12,11 @@ class CartController extends Controller
 {
     public function addToCart(Request $request){
         $product = Product::findOrFail($request->product_id);
+        if($product->quantity == 0){
+            return response(['status' => 'error', 'message' => 'Product Stock Out!']);
+        }elseif($product->quantity < $request->qty){
+            return response(['status' => 'error', 'message' => 'Quantity Not Available In Our Stock']);
+        }
         $variants = [];
         $variantTotalAmount = 0;
         if($request->has('variant_items')){
@@ -51,9 +56,20 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request){
         Cart::update($request->rowId, $request->quantity);
-        $productTotal = $this->getProductTotal($request->rowId);
+        $cartItem = Cart::get($request->rowId);
+        $product = Product::findOrFail($cartItem->id);
         $currencyIcon = GeneralSetting::first();
-        return response(['status' => 'success', 'message' => 'Updated Successfully!', 'product_total' => $productTotal, 'currencyIcon' => $currencyIcon->currency_icon]);
+        if($product->quantity < $request->quantity){
+            Cart::update($request->rowId, $request->quantity - 1);
+            $productTotal = $this->getProductTotal($request->rowId);
+            return response(['status' => 'error', 'message' => 'Product Out Of Stock!', 'product_total' => $productTotal,
+             'currencyIcon' => $currencyIcon->currency_icon]);
+        }else{
+            $productTotal = $this->getProductTotal($request->rowId);
+            return response(['status' => 'success', 'message' => 'Updated Successfully!',
+            'product_total' => $productTotal, 'currencyIcon' => $currencyIcon->currency_icon, 'cartItem' => $cartItem,
+            'productStock' => $product->quantity]);
+        }
     }
 
     public function getProductTotal($rowId){

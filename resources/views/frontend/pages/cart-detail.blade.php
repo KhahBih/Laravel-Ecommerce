@@ -170,7 +170,6 @@
                 let input = $(this).siblings('.product-qty');
                 let quantity = parseInt(input.val()) + 1;
                 let rowId = input.data('rowid');
-                input.val(quantity);
                 $.ajax({
                     url: "{{route('update-quantity')}}",
                     method: 'POST',
@@ -181,7 +180,13 @@
                     success: function(data){
                         let productId = '#'+rowId;
                         let total = data.product_total+data.currencyIcon;
-                        $(productId).text(total);
+                        if(data.status == 'error'){
+                            toastr.error(data.message);
+                            $(productId).text(total);
+                        }else{
+                            input.val(quantity);
+                            $(productId).text(total);
+                        }
                     },
                     error: function(data){
 
