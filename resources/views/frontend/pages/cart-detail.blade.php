@@ -112,7 +112,7 @@
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>$124.00</span></p>
+                        <p id="subtotal">subtotal: <span>{{getCartTotal()}}{{$settings->currency_icon}}</span></p>
                         <p>delivery: <span>$00.00</span></p>
                         <p>discount: <span>$10.00</span></p>
                         <p class="total"><span>total:</span> <span>$134.00</span></p>
@@ -166,6 +166,19 @@
 @push('scripts')
     <script>
         $(document).ready(function(){
+            function getCartTotal(){
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('cart.total') }}",
+                    success: function(data) {
+                        $('#subtotal').html(`subtotal: <span>${data}{{$settings->currency_icon}}</span>`);
+                    },
+                    error: function(data) {
+
+                    }
+                })
+            }
+
             $('.increment').on('click', function(){
                 let input = $(this).siblings('.product-qty');
                 let quantity = parseInt(input.val()) + 1;
@@ -185,6 +198,7 @@
                             $(productId).text(total);
                         }else{
                             input.val(quantity);
+                            getCartTotal()
                             $(productId).text(total);
                         }
                     },
@@ -210,6 +224,7 @@
                         success: function(data){
                             let productId = '#'+rowId;
                             let total = data.product_total+data.currencyIcon;
+                            getCartTotal()
                             $(productId).text(total);
                         },
                         error: function(data){

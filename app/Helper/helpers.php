@@ -18,6 +18,14 @@
         return false;
     }
 
+    function getCartTotal() {
+        $total = 0;
+        foreach(Cart::content() as $product){
+            $total =+ ($product->price + $product->options->variants_total) * $product->qty;
+        }
+        return $total;
+    }
+
     // Calculate discount percentage
     function calculateDiscountPercent($price, $offerPrice) {
         $discountAmount = $price - $offerPrice;
