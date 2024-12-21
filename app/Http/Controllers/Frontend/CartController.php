@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\GeneralSetting;
 use App\Models\Product;
 use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Support\Facades\Session;
+
 class CartController extends Controller
 {
     public function addToCart(Request $request){
@@ -47,6 +50,36 @@ class CartController extends Controller
         $cartData['options']['slug'] = $product->slug;
         Cart::add($cartData);
         return response(['status' => 'success', 'message' => 'Added to cart successfully!']);
+    }
+
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where(['code' => $request->coupon_code, 'status' => 1])->first();
+        if($coupon === null){
+            return response(['status' => 'error', 'message' => 'Coupon not exist!']);
+        }elseif($coupon->start_date > date('Y-m-d')){
+            return response(['status' => 'error', 'message' => 'Coupon not exist!']);
+        }elseif($coupon->end_date < date('Y-m-d')){
+            return response(['status' => 'error', 'message' => 'Coupon has expired!']);
+        }elseif($coupon->total_used >= $coupon->quantity){
+            return response(['status' => 'error', 'message' => 'You cannot use this coupon!']);
+        }
+
+        if($coupon->discount_type == 'Amount'){
+            Session::put('coupon', [
+                'coupon_name' => $coupon->name,
+                'coupon_code' => $coupon->code,
+                'discount_type' => 'amount',
+                'discount_value' => $coupon->discount_value,
+            ]);
+        }elseif($coupon->discount_type == 'Percentage'){
+            Session::put('coupon', [
+                'coupon_name' => $coupon->name,
+                'coupon_code' => $coupon->code,
+                'discount_type' => 'percent',
+                'discount_value' => $coupon->discount_value,
+            ]);
+        }
+        return response(['status' => 'success', 'message' => 'Coupon applied successfully!']);
     }
 
     public function cartDetails(){
