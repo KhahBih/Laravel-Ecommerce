@@ -114,8 +114,8 @@
                         <h6>total cart</h6>
                         <p id="subtotal">subtotal: <span>{{getCartTotal()}}{{$settings->currency_icon}}</span></p>
                         <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
+                        <p id="discount_value">discount: <span>{{getMainCartDiscount()}}</span></p>
+                        <p class="total" id="totalDiscount"><span>total:</span> <span>{{getMainCartTotal()}}{{$settings->currency_icon}}</span></p>
 
                         <form id="coupon_form">
                             <input type="text" placeholder="Coupon Code" name="coupon_code">
@@ -179,6 +179,26 @@
                 })
             }
 
+            function calculateCouponDiscount(){
+                $.ajax({
+                    url: "{{route('cart.coupon-calculate')}}",
+                    method: 'GET',
+                    success: function(data){
+                        if(data.status == 'success'){
+                            $('#totalDiscount').html(`<span>total:</span> <span>${data.cart_total}{{$settings->currency_icon}}</span>`)
+                            if(data.discount_type == 'percent'){
+                                return $('#discount_value').html(`discount: <span>${data.discount}%</span>`)
+                            }else{
+                                return $('#discount_value').html(`discount: <span>${data.discount_value}{{$settings->currency_icon}}</span>`)
+                            }
+                        }
+                    },
+                    error: function(data){
+
+                    }
+                })
+            }
+
             $('.increment').on('click', function(){
                 let input = $(this).siblings('.product-qty');
                 let quantity = parseInt(input.val()) + 1;
@@ -199,6 +219,7 @@
                         }else{
                             input.val(quantity);
                             getCartTotal()
+                            calculateCouponDiscount()
                             $(productId).text(total);
                         }
                     },
@@ -225,6 +246,7 @@
                             let productId = '#'+rowId;
                             let total = data.product_total+data.currencyIcon;
                             getCartTotal()
+                            calculateCouponDiscount()
                             $(productId).text(total);
                         },
                         error: function(data){
@@ -275,6 +297,7 @@
                         if(data.status == 'error'){
                             toastr.error(data.message);
                         }else if(data.status == 'success'){
+                            calculateCouponDiscount()
                             toastr.success(data.message);
                         }
                     },

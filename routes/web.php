@@ -48,6 +48,7 @@ Route::get('cart-products', [CartController::class, 'getCartProducts'])->name('c
 Route::post('cart/remove-sidebar-product', [CartController::class, 'removeSidebarProduct'])->name('cart.remove-sidebar-product');
 Route::get('cart/sidebar-product-total', [CartController::class, 'getCartTotal'])->name('cart.total');
 Route::get('cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.apply-coupon');
+Route::get('cart/coupon-calculate', [CartController::class, 'couponCalculate'])->name('cart.coupon-calculate');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');

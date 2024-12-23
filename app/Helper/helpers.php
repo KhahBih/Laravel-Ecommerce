@@ -1,5 +1,8 @@
 <?php
     // Set sidebar items active
+
+use App\Models\GeneralSetting;
+
     function setActive(array $route){
         if(is_array($route)){
             foreach($route as $r){
@@ -24,6 +27,35 @@
             $total =+ ($product->price + $product->options->variants_total) * $product->qty;
         }
         return $total;
+    }
+
+    function getMainCartTotal() {
+        if(Session::has('coupon')){
+            $coupon = Session::get('coupon');
+            if($coupon['discount_type'] == 'amount'){
+                $total = getCartTotal() - $coupon['discount_value'];
+                return $total;
+            }elseif($coupon['discount_type'] == 'percent'){
+                $total = getCartTotal() - ((getCartTotal() * $coupon['discount_value']) / 100);
+                return $total;
+            }
+        }else{
+            getCartTotal();
+        }
+    }
+
+    function getMainCartDiscount() {
+        if(Session::has('coupon')){
+            $coupon = Session::get('coupon');
+            if($coupon['discount_type'] == 'amount'){
+                return $coupon['discount_value'] . GeneralSetting::first()->currency_icon;
+            }elseif($coupon['discount_type'] == 'percent'){
+                $discount = $coupon['discount_value'];
+                return $discount . '%';
+            }
+        }else{
+            return 0;
+        }
     }
 
     // Calculate discount percentage

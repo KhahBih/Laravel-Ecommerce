@@ -141,4 +141,17 @@ class CartController extends Controller
         }
         return $total;
     }
+
+    public function couponCalculate(){
+        if(Session::has('coupon')){
+            $coupon = Session::get('coupon');
+            if($coupon['discount_type'] == 'amount'){
+                $total = getCartTotal() - $coupon['discount_value'];
+                return response(['status' => 'success', 'cart_total' => $total, 'discount' => $coupon['discount_value'], 'discount_type' => $coupon['discount_type']]);
+            }elseif($coupon['discount_type'] == 'percent'){
+                $total = getCartTotal() - ((getCartTotal() * $coupon['discount_value']) / 100);
+                return response(['status' => 'success', 'cart_total' => $total, 'discount' => $coupon['discount_value'], 'discount_type' => $coupon['discount_type']]);
+            }
+        }
+    }
 }
