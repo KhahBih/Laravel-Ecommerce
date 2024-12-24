@@ -84,6 +84,9 @@ class CartController extends Controller
 
     public function cartDetails(){
         $cartItems = Cart::content();
+        if(count($cartItems) == 0){
+            Session::forget('coupon');
+        }
         return view('frontend.pages.cart-detail', compact('cartItems'));
     }
 
@@ -152,6 +155,9 @@ class CartController extends Controller
                 $total = getCartTotal() - ((getCartTotal() * $coupon['discount_value']) / 100);
                 return response(['status' => 'success', 'cart_total' => $total, 'discount' => $coupon['discount_value'], 'discount_type' => $coupon['discount_type']]);
             }
+        }else{
+            $total = getCartTotal();
+            return response(['status' => 'success', 'cart_total' => $total, 'discount' => 0]);
         }
     }
 }

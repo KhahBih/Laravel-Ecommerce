@@ -62,7 +62,7 @@ class AddressController extends Controller
         $address->save();
 
         toastr('Created Successfully!', 'success', 'success');
-        return redirect()->route('user.address.index');
+        return redirect()->back();
     }
 
     /**

@@ -24,7 +24,7 @@ use App\Models\GeneralSetting;
     function getCartTotal() {
         $total = 0;
         foreach(Cart::content() as $product){
-            $total =+ ($product->price + $product->options->variants_total) * $product->qty;
+            $total += ($product->price + $product->options->variants_total) * $product->qty;
         }
         return $total;
     }
@@ -40,7 +40,7 @@ use App\Models\GeneralSetting;
                 return $total;
             }
         }else{
-            getCartTotal();
+            return getCartTotal();
         }
     }
 
@@ -54,7 +54,7 @@ use App\Models\GeneralSetting;
                 return $discount . '%';
             }
         }else{
-            return 0;
+            return 0 . GeneralSetting::first()->currency_icon;
         }
     }
 
