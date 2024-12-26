@@ -9,6 +9,7 @@ use App\Models\District;
 use App\Models\ShippingRule;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CheckOutController extends Controller
 {
@@ -48,5 +49,23 @@ class CheckOutController extends Controller
 
         toastr('Created Successfully!', 'success', 'success');
         return redirect()->back();
+    }
+
+    public function formSubmit(Request $request){
+        $request->validate([
+            'shipping_method_id' => ['required', 'integer'],
+            'shipping_address_id' => ['required', 'integer']
+        ]);
+
+        $shippingMethod = ShippingRule::findOrFail($request->shipping_method_id);
+        $address = UserAddress::findOrFail($request->shipping_address_id);
+        Session::put('shipping_method', [
+            'id' => $shippingMethod->id,
+            'name' => $shippingMethod->name,
+            'type' => $shippingMethod->type,
+            'cost' => $shippingMethod->cost,
+        ]);
+        Session::put('address', $address);
+        return response(['status' => 'success']);
     }
 }

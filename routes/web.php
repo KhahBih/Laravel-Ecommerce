@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     // Check Out Routes
     Route::get('/check-out', [CheckOutController::class, 'index'])->name('checkout');
     Route::post('/check-out/create-address', [CheckOutController::class, 'store'])->name('checkout.create-address');
+    Route::post('/check-out/form-submit', [CheckOutController::class, 'formSubmit'])->name('checkout.form-submit');
 });
 
 
