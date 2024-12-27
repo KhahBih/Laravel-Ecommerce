@@ -17,6 +17,8 @@ use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\PaypalSettingController;
+use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\ShippingRuleController;
 use Illuminate\Http\Request;
 
@@ -74,3 +76,8 @@ Route::resource('shipping-rule', ShippingRuleController::class);
 // Setting routes
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 Route::put('general-settings-update', [SettingController::class, 'generalSettingsUpdate'])->name('settings.update');
+
+// Paypal Setting routes
+Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting');
+Route::resource('paypal-setting', PaypalSettingController::class);
+

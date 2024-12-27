@@ -114,8 +114,7 @@
                         <h6>total cart</h6>
                         <p id="subtotal">subtotal: <span>{{getCartTotal()}}{{$settings->currency_icon}}</span></p>
                         <p id="discount_value">discount: <span>{{getMainCartDiscount()}}</span></p>
-                        <p class="total" id="totalDiscount"><span>total:</span> <span>{{getMainCartTotal()}}{{$settings->currency_icon}}</span></p>
-
+                        <p class="total" id="totalDiscount"><span>total:</span> <span>{{getMainCartTotal()}}</span></p>
                         <form id="coupon_form">
                             <input type="text" placeholder="Coupon Code" name="coupon_code"
                             value="{{session()->has('coupon') ? session()->get('coupon')['coupon_code'] : ''}}">

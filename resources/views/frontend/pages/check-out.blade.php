@@ -91,9 +91,8 @@
                             </div>
                             <div class="terms_area">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3"
-                                        checked>
-                                    <label class="form-check-label" for="flexCheckChecked3">
+                                    <input class="form-check-input agree_term" type="checkbox" value="" id="flexCheckChecked3">
+                                    <label class="form-check-label" for="flexCheckChecked3" id="term">
                                         I have read and agree to the website <a href="#">terms and conditions *</a>
                                     </label>
                                 </div>
@@ -255,13 +254,19 @@
                     toastr.error('Shipping method is required!')
                 }else if($('#shipping_address_id').val() == ''){
                     toastr.error('Address is required!')
+                }else if(!$('.agree_term').prop('checked')){
+                    toastr.error('Please agree to our Term and Conditions!')
                 }else{
                     $.ajax({
                             method: 'POST',
                             url: "{{route('user.checkout.form-submit')}}",
                             data: $('#checkOutForm').serialize(),
+                            beforeSend: function(){
+                                $('#submitCheckoutForm').html(`<i class="fas fa-spinner fa-spin fa-1x"></i>`)
+                            },
                             success: function(data){
-
+                                $('#submitCheckoutForm').html(`Place Order`);
+                                window.location.href = data.redirect_url
                             },
                             error: function(xhr, status, error){
                                 console.log(error);
