@@ -5,43 +5,34 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label>Site name</label>
-                    <input type="text" class="form-control" data-tribute="true" name="site_name" value="{{$generalSettings->site_name}}">
-                </div>
-                <div class="form-group">
-                    <label>Layout</label>
-                    <select name="layout" id="" class="form-control">
+                    <label>Paypal Status</label>
+                    <select name="status" id="" class="form-control">
                         <option value="">Select</option>
-                        <option {{@$generalSettings->layout == 'LTR' ? 'selected' : ''}} value="LTR">LTR</option>
-                        <option {{@$generalSettings->layout == 'RTL' ? 'selected' : ''}} value="RTL">RTL</option>
+                        <option value="1">Enable</option>
+                        <option value="0">Disable</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Contact Email</label>
-                    <input type="text" class="form-control" data-tribute="true" name="email" value="{{@$generalSettings->contact_email}}">
-                </div>
-                <div class="form-group">
-                    <label>Default Currency</label>
-                    <select name="default_currency" id="" class="form-control select2">
+                    <label>Account Mode</label>
+                    <select name="mode" id="" class="form-control">
                         <option value="">Select</option>
-                        @foreach (config('settings.currency_list') as $currency)
-                            <option {{@$generalSettings->default_currency_name == $currency ? 'selected' : ''}}
-                            value="{{$currency}}">{{$currency}}</option>
-                        @endforeach
+                        <option value="1">Live</option>
+                        <option value="0">Sandbox</option>
                     </select>
                 </div>
+                <input type="hidden" value="VN" name="country_name">
+                <input type="hidden" value="VND" name="currency_name">
+                {{-- <div class="form-group">
+                    <label>Currency rate ( per USD )</label>
+                    <input type="text" class="form-control" data-tribute="true" name="currency_rate" value="">
+                </div> --}}
                 <div class="form-group">
-                    <label>Currency Icon</label>
-                    <input type="text" class="form-control" data-tribute="true" name="currency_icon" value="{{@$generalSettings->currency_icon}}">
+                    <label>Paypal Client ID</label>
+                    <input type="text" class="form-control" data-tribute="true" name="client_id" value="">
                 </div>
                 <div class="form-group">
-                    <label>Time Zone</label>
-                    <select name="time_zone" id="" class="form-control select2">
-                        <option value="">Select</option>
-                        @foreach (config('settings.time_zone') as $key => $time_zone)
-                            <option {{@$generalSettings->time_zone == $key ? 'selected' : ''}} value="{{$key}}">{{$key}}</option>
-                        @endforeach
-                    </select>
+                    <label>Paypal Secret Key</label>
+                    <input type="text" class="form-control" data-tribute="true" name="secret_key" value="">
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>

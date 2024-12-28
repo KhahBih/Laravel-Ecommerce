@@ -78,6 +78,6 @@ Route::get('settings', [SettingController::class, 'index'])->name('settings.inde
 Route::put('general-settings-update', [SettingController::class, 'generalSettingsUpdate'])->name('settings.update');
 
 // Paypal Setting routes
-Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting');
+Route::get('payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
 Route::resource('paypal-setting', PaypalSettingController::class);
 
