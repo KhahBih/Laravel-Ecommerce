@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "spatie/laravel-ignition": "*",
+        "srmklive/paypal": "~3.0",
         "yajra/laravel-datatables": "*",
         "yoeunes/toastr": "*"
     },
