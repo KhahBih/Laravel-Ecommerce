@@ -25,11 +25,18 @@ class PaymentController extends Controller
         }
     }
 
+    public function clearSession(){
+        Cart::destroy();
+        Session::forget('address');
+        Session::forget('shipping_method');
+        Session::forget('coupon');
+    }
+
     public function storeOrder($paymentMethod, $paymentStatus, $transactionId, $paidAmount, $paidCurrencyName){
         // Store Order
         $order = new Order();
         $setting = GeneralSetting::first();
-        $order->invoice_id = rand(1, 999999);
+        $order->invocie_id = rand(1, 999999);
         $order->user_id = Auth::user()->id;
         $order->sub_total = getMainCartTotal();
         $order->amount = getFinalPayableAmount();
@@ -41,7 +48,7 @@ class PaymentController extends Controller
         $order->order_address = json_encode(Session::get('address'));
         $order->shipping_method = json_encode(Session::get('shipping_method'));
         $order->coupon = json_encode(Session::get('coupon'));
-        $order->status = 0;
+        $order->order_status = 0;
 
         $order->save();
 
@@ -116,6 +123,7 @@ class PaymentController extends Controller
         // Calculate payable amount
         $total = getFinalPayableAmount();
         $payableAmount = round($total, 2);
+        // $payableAmount = round($total*$paypalSetting->currency_rate, 2);
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
@@ -151,6 +159,11 @@ class PaymentController extends Controller
 
         $response = $provider->capturePaymentOrder($request->token);
         if(isset($response['status']) && $response['status'] == 'COMPLETED'){
+            $paypalSetting = PaypalSetting::first();
+            $total = getFinalPayableAmount();
+            $payableAmount = round($total*$paypalSetting->currency_rate, 2);
+            $this->storeOrder('paypal', 1, $response['id'], $payableAmount, $paypalSetting->currency_name);
+            $this->clearSession();
             return redirect()->route('user.payment.success');
         }
         return redirect()->route('user.paypal.cancel');

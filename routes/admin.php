@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\PaypalSettingController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\ShippingRuleController;
+use App\Http\Controllers\Backend\StripeSettingController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -77,7 +78,9 @@ Route::resource('shipping-rule', ShippingRuleController::class);
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 Route::put('general-settings-update', [SettingController::class, 'generalSettingsUpdate'])->name('settings.update');
 
-// Paypal Setting routes
+// Payment Setting routes
 Route::get('payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
 Route::resource('paypal-setting', PaypalSettingController::class);
+Route::put('stripe-setting/{id}', [StripeSettingController::class, 'update'])->name('stripe-setting.update');
+
 
