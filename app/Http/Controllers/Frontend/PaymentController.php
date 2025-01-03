@@ -172,4 +172,9 @@ class PaymentController extends Controller
     public function paypalCancel(){
 
     }
+
+    // Stripe payment
+    public function payWithStripe(Request $request){
+        dd($request->all());
+    }
 }
