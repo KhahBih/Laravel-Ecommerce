@@ -9545,3 +9545,7 @@ a:not([href]):not([class]):hover {
 .wsus__cart_list .wsus__pro_name{
     width: 285px;
 }
+
+#card-element{
+    padding: 18px;
+}

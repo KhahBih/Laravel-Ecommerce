@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-xl-12 m-auto">
             <div class="wsus__payment_area">
-                <form action="{{route('user.stripe.payment')}}" method="POST">
+                <form action="{{route('user.stripe.payment')}}" method="POST" id="checkout-form">
                     @csrf
                     <input type="hidden" name="stripe_token" id="stripe-token-id">
                     <div id="card-element" class="form-control"></div></br>
-                    <button class="nav-link common_btn" id="pay-btn">Pay with Stripe</button>
+                    <button class="nav-link common_btn" id="pay-btn" type="button" onclick="createToken()">Pay with Stripe</button>
                 </form>
             </div>
         </div>

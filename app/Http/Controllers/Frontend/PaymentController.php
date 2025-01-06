@@ -8,12 +8,15 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaypalSetting;
 use App\Models\Product;
+use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -48,7 +51,7 @@ class PaymentController extends Controller
         $order->order_address = json_encode(Session::get('address'));
         $order->shipping_method = json_encode(Session::get('shipping_method'));
         $order->coupon = json_encode(Session::get('coupon'));
-        $order->order_status = 0;
+        $order->order_status = 'pending';
 
         $order->save();
 
@@ -122,8 +125,8 @@ class PaymentController extends Controller
 
         // Calculate payable amount
         $total = getFinalPayableAmount();
-        $payableAmount = round($total, 2);
-        // $payableAmount = round($total*$paypalSetting->currency_rate, 2);
+        // $payableAmount = round($total, 2);
+        $payableAmount = round($total*$paypalSetting->currency_rate, 2);
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
@@ -170,11 +173,31 @@ class PaymentController extends Controller
     }
 
     public function paypalCancel(){
-
+        toastr('Something went wrong, please try again later!', 'error', 'Error');
+        return redirect()->route('user.payment');
     }
 
     // Stripe payment
     public function payWithStripe(Request $request){
-        dd($request->all());
+        $stripeSetting = StripeSetting::first();
+        $total = getFinalPayableAmount();
+        $payableAmount = round($total * $stripeSetting->currency_rate, 2);
+
+        Stripe::setApiKey($stripeSetting->secret_key);
+        $response = Charge::create([
+            "amount" => $payableAmount*100,
+            "currency" => $stripeSetting->currency_name,
+            "source" => $request->stripe_token,
+            "description" => "Product Purchased!"
+        ]);
+
+        if($response->status == 'succeeded'){
+            $this->storeOrder('stripe', 1, $response->id, $payableAmount, $stripeSetting->currency_name);
+            $this->clearSession();
+            return redirect()->route('user.payment.success');
+        }else{
+            toastr('Something went wrong, please try again later!', 'error', 'Error');
+            return redirect()->route('user.payment');
+        }
     }
 }
