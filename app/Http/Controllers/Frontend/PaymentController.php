@@ -39,9 +39,9 @@ class PaymentController extends Controller
         // Store Order
         $order = new Order();
         $setting = GeneralSetting::first();
-        $order->invocie_id = rand(1, 999999);
+        $order->invoice_id = rand(1, 999999);
         $order->user_id = Auth::user()->id;
-        $order->sub_total = getMainCartTotal();
+        $order->sub_total = getCartTotal();
         $order->amount = getFinalPayableAmount();
         $order->currency_name = $setting->default_currency_name;
         $order->currency_icon = $setting->currency_icon;

@@ -85,6 +85,7 @@ Route::resource('paypal-setting', PaypalSettingController::class);
 Route::put('stripe-setting/{id}', [StripeSettingController::class, 'update'])->name('stripe-setting.update');
 
 // Order routes
+Route::get('order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
 Route::resource('order', OrderController::class);
 
 

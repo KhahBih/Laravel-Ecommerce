@@ -37,6 +37,7 @@ use App\Models\GeneralSetting;
                 return $total;
             }elseif($coupon['discount_type'] == 'percent'){
                 $total = getCartTotal() - ((getCartTotal() * $coupon['discount_value']) / 100);
+                // $total = getCartTotal() - $discount;
                 return $total;
             }
         }else{
