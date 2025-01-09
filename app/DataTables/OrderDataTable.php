@@ -36,16 +36,41 @@ class OrderDataTable extends DataTable
             })
             ->addColumn('payment_status', function($query){
                 if($query->payment_status == 1){
-                    return "<span class='badge bg-success'>Complete</span>";
+                    return "<span class='badge bg-success' style='color: white!important'>Complete</span>";
                 }else{
-                    return "<span class='badge bg-danger'>Pending</span>";
+                    return "<span class='badge bg-danger' style='color: white!important'>Pending</span>";
                 }
             })
             ->addColumn('date', function($query){
                 return date('Y-m-d', strtotime($query->created_at));
             })
             ->addColumn('order_status', function($query){
-                return "<span class='badge bg-warning'>$query->order_status</span>";
+                switch ($query->order_status) {
+                    case 'pending':
+                        return "<span class='badge bg-warning' style='color: white!important'>Pending</span>";
+                        break;
+                    case 'processed_and_ready_to_ship':
+                        return "<span class='badge bg-info' style='color: white!important'>Processed</span>";
+                        break;
+                    case 'dropped_off':
+                        return "<span class='badge bg-info' style='color: white!important'>Dropped off</span>";
+                        break;
+                    case 'shipped':
+                        return "<span class='badge bg-info' style='color: white!important'>Shipped</span>";
+                        break;
+                    case 'out_for_delivery':
+                        return "<span class='badge bg-primary' style='color: white!important'>Out for delivery</span>";
+                        break;
+                    case 'delivered':
+                        return "<span class='badge bg-success' style='color: white!important'>Delivered</span>";
+                        break;
+                    case 'canceled':
+                        return "<span class='badge bg-danger' style='color: white!important'>Canceled</span>";
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
             })
             ->rawColumns(['action', 'order_status', 'payment_status'])
             ->setRowId('id');

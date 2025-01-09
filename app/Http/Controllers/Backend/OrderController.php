@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\DataTables\OrderDataTable;
+use App\DataTables\PendingOrdersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -15,6 +16,11 @@ class OrderController extends Controller
     public function index(OrderDataTable $dataTable)
     {
         return $dataTable->render('admin.order.index');
+    }
+
+    public function pendingOrders(PendingOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.pending-orders');
     }
 
     /**
@@ -73,5 +79,14 @@ class OrderController extends Controller
         $order->save();
 
         return response(['status' => 'success', 'message' => 'Updated Order Status!']);
+    }
+
+    public function changePaymentStatus(Request $request)
+    {
+        $payment = Order::findOrFail($request->id);
+        $payment->payment_status = $request->status;
+        $payment->save();
+
+        return response(['status' => 'success', 'message' => 'Updated Payment Status!']);
     }
 }

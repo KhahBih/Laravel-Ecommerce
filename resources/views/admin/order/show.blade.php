@@ -109,6 +109,13 @@
                                             <div class="col-lg-8">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label for="">Payment Status</label>
+                                                        <select id="payment_status" data-id="{{$order->id}}" name="" class="form-control">
+                                                            <option {{$order->payment_status == 0 ? 'selected' : ''}} value="0">Pending</option>
+                                                            <option {{$order->payment_status == 1 ? 'selected' : ''}} value="1">Completed</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="">Order Status</label>
                                                         <select name="" id="order_status" data-id="{{$order->id}}" class="form-control">
                                                             @foreach (config('order_status.order_status_admin') as $key => $orderStatus)
@@ -153,14 +160,10 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="text-md-right">
-                                    <div class="float-lg-left mb-lg-0 mb-3">
-                                    <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-                                    <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
-                                    </div>
-                                    <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-                                </div>
-                                </div>
+                            </div>
+                            <div class="text-md-right">
+                                <button class="btn btn-warning btn-icon icon-left print_invoice"><i class="fas fa-print"></i> Print</button>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -200,6 +203,38 @@
                         alert('Error')
                     }
                 })
+            })
+
+            $('#payment_status').on('change', function(e){
+                e.preventDefault()
+                let status = $(this).val()
+                let id = $(this).data('id')
+                $.ajax({
+                    method: 'GET',
+                    url: "{{route('admin.payment.status')}}",
+                    data: {
+                        id: id,
+                        status: status
+                    },
+                    success: function(data){
+                        if(data.status == 'success'){
+                            toastr.success(data.message);
+
+                        }
+                    },
+                    error: function(data){
+                        alert('Error')
+                    }
+                })
+            })
+
+            $('.print_invoice').on('click', function(e){
+                e.preventDefault()
+                let printBody = $('.invoice-print')
+                let originalContents = $('body').html()
+                $('body').html(printBody.html())
+                window.print();
+                $('body').html(originalContents)
             })
         })
     </script>

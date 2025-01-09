@@ -86,6 +86,9 @@ Route::put('stripe-setting/{id}', [StripeSettingController::class, 'update'])->n
 
 // Order routes
 Route::get('order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
+Route::get('payment-status', [OrderController::class, 'changePaymentStatus'])->name('payment.status');
+Route::get('pending-orders', [OrderController::class, 'pendingOrders'])->name('pending-orders');
+Route::get('processes-orders', [OrderController::class, 'processesOrders'])->name('processes-orders');
 Route::resource('order', OrderController::class);
 
 
