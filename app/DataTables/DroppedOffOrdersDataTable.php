@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PendingOrdersDataTable extends DataTable
+class DroppedOffOrdersDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -80,7 +80,7 @@ class PendingOrdersDataTable extends DataTable
      */
     public function query(Order $model): QueryBuilder
     {
-        return $model->where('order_status', 'pending')->newQuery();
+        return $model->where('order_status', 'dropped_off')->newQuery();
     }
 
     /**
@@ -133,6 +133,6 @@ class PendingOrdersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'PendingOrders_' . date('YmdHis');
+        return 'DroppedOffOrders_' . date('YmdHis');
     }
 }

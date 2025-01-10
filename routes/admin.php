@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\PaypalSettingController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\StripeSettingController;
+use App\Http\Controllers\Backend\TransactionController;
 use Illuminate\Http\Request;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -88,7 +89,13 @@ Route::put('stripe-setting/{id}', [StripeSettingController::class, 'update'])->n
 Route::get('order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
 Route::get('payment-status', [OrderController::class, 'changePaymentStatus'])->name('payment.status');
 Route::get('pending-orders', [OrderController::class, 'pendingOrders'])->name('pending-orders');
-Route::get('processes-orders', [OrderController::class, 'processesOrders'])->name('processes-orders');
+Route::get('processed-orders', [OrderController::class, 'processedOrders'])->name('processed-orders');
+Route::get('dropped-off-orders', [OrderController::class, 'droppedOffOrders'])->name('dropped-off-orders');
+Route::get('shipped-orders', [OrderController::class, 'shippedOrders'])->name('shipped-orders');
+Route::get('out-for-delivery-orders', [OrderController::class, 'outForDeliveryOrders'])->name('out-for-delivery-orders');
+Route::get('delivered-orders', [OrderController::class, 'deliveredOrders'])->name('delivered-orders');
+Route::get('canceled-orders', [OrderController::class, 'canceledOrders'])->name('canceled-orders');
+Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
 Route::resource('order', OrderController::class);
 
 

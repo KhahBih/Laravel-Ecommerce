@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\OrderDataTable;
 use App\DataTables\PendingOrdersDataTable;
+use App\DataTables\ProcessedOrdersDataTable;
+use App\DataTables\DroppedOffOrdersDataTable;
+use App\DataTables\ShippedOrdersDataTable;
+use App\DataTables\OutForDeliveryOrdersDataTable;
+use App\DataTables\DeliveredOrdersDataTable;
+use App\DataTables\CanceledOrdersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -21,6 +27,36 @@ class OrderController extends Controller
     public function pendingOrders(PendingOrdersDataTable $dataTable)
     {
         return $dataTable->render('admin.order.pending-orders');
+    }
+
+    public function processedOrders(ProcessedOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.processed-orders');
+    }
+
+    public function droppedOffOrders(DroppedOffOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.dropped-off-orders');
+    }
+
+    public function shippedOrders(ShippedOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.shipped-orders');
+    }
+
+    public function outForDeliveryOrders(OutForDeliveryOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.out-for-delivery-orders');
+    }
+
+    public function deliveredOrders(DeliveredOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.delivered-orders');
+    }
+
+    public function canceledOrders(CanceledOrdersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.canceled-orders');
     }
 
     /**
@@ -69,7 +105,15 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        // delete order products
+        $order->orderProducts()->delete();
+        // delete transaction
+        $order->transaction()->delete();
+
+        $order->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted successfully!']);
     }
 
     public function changeOrderStatus(Request $request)
