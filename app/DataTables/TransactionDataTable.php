@@ -25,8 +25,13 @@ class TransactionDataTable extends DataTable
             ->addColumn('invoice_id', function($query){
                 return $query->order->invoice_id;
             })
-            ->addColumn('base_paid_amount', function($query){
+            ->addColumn('amount_in_base_currency', function($query){
                 return $query->amount . $query->order->currency_name;
+            })
+            ->filterColumn('invoice_id', function($query, $keyword){
+                $query->whereHas('order', function($query) use ($keyword){
+                    $query->where('invoice_id', 'like', "$keyword");
+                });
             })
             ->setRowId('id');
     }
@@ -68,11 +73,11 @@ class TransactionDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('order_id'),
+            Column::make('invoice_id'),
             Column::make('transaction_id'),
             Column::make('payment_method'),
             Column::make('amount'),
-            Column::make('base_paid_amount'),
+            Column::make('amount_in_base_currency'),
         ];
     }
 

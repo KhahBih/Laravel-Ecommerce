@@ -138,7 +138,7 @@
                                                 <div class="invoice-detail-item">
                                                     <div class="invoice-detail-name">Coupon</div>
                                                     <div class="invoice-detail-value">
-                                                        @if ($coupon->discount_value == null)
+                                                        @if (!isset($coupon->discount_value))
                                                             0 {{$order->currency_icon}}
                                                         @else()
                                                             @if($coupon->discount_type == 'percent')

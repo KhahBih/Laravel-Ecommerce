@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Backend\VendorOrderController;
 use App\Http\Controllers\Backend\VendorShopProfileController;
 use App\Http\Controllers\Backend\VendorProfileController;
 use App\Http\Controllers\Backend\VendorProductController;
@@ -21,6 +22,10 @@ Route::resource('/shop-profile', VendorShopProfileController::class)->names([
 ]);
 Route::resource('/products', VendorProductController::class);
 Route::resource('/vendor-product-image-gallery', VendorProductImageGalleryController::class);
+
+// Variant order routes
+Route::get('/orders', [VendorOrderController::class, 'index'])->name('orders');
+Route::get('/order/show/{id}', [VendorOrderController::class, 'show'])->name('order.show');
 
 // Product Variant routes
 Route::resource('products-variant', VendorProductVariantController::class);
