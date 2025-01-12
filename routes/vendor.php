@@ -26,6 +26,7 @@ Route::resource('/vendor-product-image-gallery', VendorProductImageGalleryContro
 // Variant order routes
 Route::get('/orders', [VendorOrderController::class, 'index'])->name('orders');
 Route::get('/order/show/{id}', [VendorOrderController::class, 'show'])->name('order.show');
+Route::get('/order/status/{id}', [VendorOrderController::class, 'changeOrderStatus'])->name('order.status');
 
 // Product Variant routes
 Route::resource('products-variant', VendorProductVariantController::class);

@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\AddressController;
@@ -78,6 +79,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     // Stripe routes
     Route::post('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
+
+    // Order routes
+    Route::get('/orders', [UserOrderController::class, 'index'])->name('orders');
+    Route::get('/order/show/{id}', [UserOrderController::class, 'show'])->name('order.show');
 });
 
 
