@@ -1,4 +1,8 @@
-<?php $address = json_decode($order->order_address); ?>
+<?php
+    $address = json_decode($order->order_address);
+    $shipping = json_decode($order->shipping_method);
+    $coupon = json_decode($order->coupon);
+?>
 @extends('vendor.layouts.master')
 @section('content')
 <section id="wsus__dashboard">
@@ -75,7 +79,6 @@
                                             </th>
                                         </tr>
                                         @foreach ($order->orderProducts as $product)
-                                            @if ($product->vendor_id == Auth::user()->vendor->id)
                                             <?php
                                                 $variants = json_decode($product->variants);
                                                 $total = 0;
@@ -106,32 +109,30 @@
                                                         {{ $settings->currency_icon }}
                                                     </td>
                                                 </tr>
-                                            @endif
                                         @endforeach
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <div class="wsus__invoice_footer">
-                            <p><span>Total Amount:</span>{{$total}} {{$settings->currency_icon}}</p>
+                            <p><span>Subtotal:</span>{{$order->sub_total}} {{$settings->currency_icon}}</p>
+                            <p><span>Shipping fee:</span>{{$shipping->cost}} {{$settings->currency_icon}}</p>
+                            <p><span>Coupon:</span>
+                                @if (!isset($coupon->discount_value))
+                                0 {{$settings->currency_icon}}
+                                @elseif ($coupon->discount_type == 'amount')
+                                    {{$coupon->discount_value}} {{$settings->currency_icon}}
+                                @elseif ($coupon->discount_type == 'percent')
+                                    {{$coupon->discount_value}} %
+                                @endif
+                            </p>
+                            <p><span>Total Amount:</span>{{$order->amount}} {{$settings->currency_icon}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <form action="{{route('vendor.order.status', $order->id)}}">
-                            <div class="form-group mt-5">
-                                <label for="" class="mb-2">Order Status</label>
-                                <select name="order_status" id="" class="form-control">
-                                    @foreach (config('order_status.order_status_vendor') as $key => $status)
-                                        <option {{$key == $order->order_status ? 'selected' : ''}} value="{{$key}}">
-                                            {{$status['status']}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <button class="btn btn-primary mt-2" type="submit">Save</button>
-                            </div>
-                        </form>
+
                     </div>
                     <div class="col-md-8">
                         <div class="mt-5 float-end">

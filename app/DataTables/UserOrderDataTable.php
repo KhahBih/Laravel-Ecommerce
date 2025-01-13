@@ -28,7 +28,7 @@ class UserOrderDataTable extends DataTable
             return ++$index;
         })
         ->addColumn('action', function($query){
-            $editBtn = "<a href='".route('vendor.order.show', $query->id)."' class='btn btn-primary'><i class='far fa-eye'></i></a>";
+            $editBtn = "<a href='".route('user.order.show', $query->id)."' class='btn btn-primary'><i class='far fa-eye'></i></a>";
             return $editBtn;
         })
         ->addColumn('customer', function($query){

@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\HomePageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaypalSettingController;
 use App\Http\Controllers\Backend\PaymentSettingController;
@@ -97,5 +98,8 @@ Route::get('delivered-orders', [OrderController::class, 'deliveredOrders'])->nam
 Route::get('canceled-orders', [OrderController::class, 'canceledOrders'])->name('canceled-orders');
 Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
 Route::resource('order', OrderController::class);
+
+// Home page setting routes
+Route::get('home-page-settings', [HomePageSettingController::class, 'index'])->name('home-page-settings');
 
 
