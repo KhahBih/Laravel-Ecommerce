@@ -1,3 +1,4 @@
+<?php $popularCategories = json_decode($popularCategory->value); dd($popularCategories) ?>
 <section id="wsus__monthly_top" class="wsus__monthly_top_2">
     <div class="container">
         <div class="row">
@@ -19,14 +20,28 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header for_md">
-                    <h3>Top Categories Of The Month</h3>
+                    <h3>Popular Categories</h3>
                     <div class="monthly_top_filter">
-                        <button class=" active" data-filter="*">music</button>
-                        <button data-filter=".cloth">clothing</button>
-                        <button data-filter=".elec">Electronic</button>
-                        <button data-filter=".spk">Speakers</button>
-                        <button data-filter=".cam">Cameras</button>
-                        <button data-filter=".wat">Watches</button>
+                        <button class=" active" data-filter="*">All</button>
+                        @foreach ($popularCategories as $popularCategory)
+                            <?php
+                                $lastKey = [];
+                                foreach ($popularCategory as $key => $category){
+                                    if(!isset($category)){
+                                        break;
+                                    }
+                                    $lastKey = [$key => $category];
+                                }
+                                if(array_keys($lastKey)[0] == 'category'){
+                                    $category = \App\Models\Category::findOrFail($lastKey['category']);
+                                }elseif(array_keys($lastKey)[0] == 'sub_category'){
+                                    $category = \App\Models\SubCategory::findOrFail($lastKey['sub_category']);
+                                }elseif(array_keys($lastKey)[0] == 'child_category'){
+                                    $category = \App\Models\ChildCategory::findOrFail($lastKey['child_category']);
+                                }
+                            ?>
+                            <button data-filter=".cloth">{{$category->name}}</button>
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\GeneralSetting;
+use App\Models\HomePageSetting;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,7 @@ class HomeController extends Controller
         $flashSaleDate = FlashSale::first();
         $flashSaleItems = FlashSaleItem::where('show_at_home', 1)->where('status', 1)->get();
         $generalSetting = GeneralSetting::first();
-        return view('frontend.home.home', compact('sliders', 'flashSaleDate', 'flashSaleItems', 'generalSetting'));
+        $popularCategory = HomePageSetting::where('key', 'popular_category_section')->first();
+        return view('frontend.home.home', compact('sliders', 'flashSaleDate', 'flashSaleItems', 'generalSetting', 'popularCategory'));
     }
 }
