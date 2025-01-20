@@ -103,5 +103,7 @@ Route::resource('order', OrderController::class);
 Route::get('home-page-settings', [HomePageSettingController::class, 'index'])->name('home-page-settings');
 Route::put('popular-category-section', [HomePageSettingController::class, 'updatePopularCategorySection'])
 ->name('popular-category-section');
+Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])
+->name('product-slider-section-one');
 
 

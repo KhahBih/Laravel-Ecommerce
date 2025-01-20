@@ -148,17 +148,22 @@
     <!--main/custom js-->
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script>
+        @ if($errors->any())
+                @foreach ($errors->all() as $error)
+                    toastr.error("{{$error}}");
+                @endforeach
+        @ endif
         $(document).ready(function(){
             $.ajaxSetup({
                     headers:{
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
             });
-            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    toastr.error("{{$error}}");
-                @endforeach
-            @endif
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.autoClick').click();
         })
     </script>
     @include('frontend.layouts.scripts')
