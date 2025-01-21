@@ -105,5 +105,7 @@ Route::put('popular-category-section', [HomePageSettingController::class, 'updat
 ->name('popular-category-section');
 Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])
 ->name('product-slider-section-one');
+Route::put('product-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])
+->name('product-slider-section-two');
 
 

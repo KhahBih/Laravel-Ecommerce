@@ -56,8 +56,7 @@ class ProductController extends Controller
             'long_desc' => ['required'],
             'seo_title' => ['max:200', 'nullable'],
             'seo_desc' => ['max:1000', 'nullable'],
-            'status' => ['required'],
-            'is_approved' => ['required']
+            'status' => ['required']
         ]);
 
         // Handle image upload

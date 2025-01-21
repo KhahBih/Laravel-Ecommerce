@@ -205,6 +205,7 @@
         ELECTRONIC PART END
     ==============================-->
 
+        @include('frontend.home.sections.category-product-slider-two')
 
     <!--============================
         ELECTRONIC PART START
