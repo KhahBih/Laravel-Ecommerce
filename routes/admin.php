@@ -107,5 +107,7 @@ Route::put('product-slider-section-one', [HomePageSettingController::class, 'upd
 ->name('product-slider-section-one');
 Route::put('product-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])
 ->name('product-slider-section-two');
+Route::put('product-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])
+->name('product-slider-section-three');
 
 

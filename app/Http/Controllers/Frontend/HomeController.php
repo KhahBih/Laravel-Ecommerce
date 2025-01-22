@@ -24,9 +24,10 @@ class HomeController extends Controller
         $typeBaseProduct = $this->getTypeBaseProduct();
         $categoryProductSliderSectionOne = HomePageSetting::where('key', 'product-slider-section-one')->first();
         $categoryProductSliderSectionTwo = HomePageSetting::where('key', 'product-slider-section-two')->first();
+        $categoryProductSliderSectionThree = HomePageSetting::where('key', 'product-slider-section-three')->first();
         return view('frontend.home.home', compact('sliders','brands', 'flashSaleDate',
         'flashSaleItems', 'generalSetting', 'popularCategory', 'typeBaseProduct', 'categoryProductSliderSectionOne'
-    , 'categoryProductSliderSectionTwo'));
+    , 'categoryProductSliderSectionTwo', 'categoryProductSliderSectionThree'));
     }
 
     public function getTypeBaseProduct(){
