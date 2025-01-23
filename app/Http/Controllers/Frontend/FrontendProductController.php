@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\GeneralSetting;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FrontendProductController extends Controller
 {
@@ -23,5 +24,9 @@ class FrontendProductController extends Controller
             $products = Product::where(['category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
         }
         return view('frontend.pages.product', compact('category', 'products'));
+    }
+
+    public function changeProductListView(Request $request){
+        Session::put('product_list_style', $request->style);
     }
 }
