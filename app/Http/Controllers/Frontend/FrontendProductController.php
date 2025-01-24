@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ChildCategory;
+use App\Models\SubCategory;
 use App\Models\GeneralSetting;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -22,6 +24,12 @@ class FrontendProductController extends Controller
         if($request->has('category')){
             $category = Category::where('slug', $request->category)->first();
             $products = Product::where(['category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
+        }elseif($request->has('sub_category')){
+            $category = SubCategory::where('slug', $request->sub_category)->first();
+            $products = Product::where(['sub_category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
+        }elseif($request->has('child_category')){
+            $category = ChildCategory::where('slug', $request->child_category)->first();
+            $products = Product::where(['child_category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
         }
         return view('frontend.pages.product', compact('category', 'products'));
     }
