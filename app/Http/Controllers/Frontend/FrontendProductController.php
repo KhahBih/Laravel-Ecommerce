@@ -24,7 +24,7 @@ class FrontendProductController extends Controller
     public function products(Request $request){
         if($request->has('category')){
             $category = Category::where('slug', $request->category)->first();
-            $products = Product::where(['category_id' => $category->id, 'status' => 1, 'is_approved' => 1]);
+            $products = Product::where(['category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
         }elseif($request->has('sub_category')){
             $category = SubCategory::where('slug', $request->sub_category)->first();
             $products = Product::where(['sub_category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
@@ -32,17 +32,17 @@ class FrontendProductController extends Controller
             $category = ChildCategory::where('slug', $request->child_category)->first();
             $products = Product::where(['child_category_id' => $category->id, 'status' => 1, 'is_approved' => 1])->paginate(12);
         }
-        // elseif($request->has('brand')){
-        //     $brand = Brand::where('slug', $request->brand)->first();
-        //     $products = Product::where([
-        //         'brand_id' => $brand->id,
-        //         'status' => 1,
-        //         'is_approved' => 1
-        //     ])->paginate(12);
-        // }
+        elseif($request->has('brand')){
+            $brand = Brand::where('slug', $request->brand)->first();
+            $products = Product::where([
+                'brand_id' => $brand->id,
+                'status' => 1,
+                'is_approved' => 1
+            ])->paginate(12);
+        }
         $categories = Category::where(['status' => 1,])->get();
         $brands = Brand::where(['status' => 1,])->get();
-        return view('frontend.pages.product', compact('category','products','categories', 'brands'));
+        return view('frontend.pages.product', compact('products','categories', 'brands'));
     }
 
     public function changeProductListView(Request $request){
