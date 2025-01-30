@@ -111,6 +111,30 @@
                     }
                 })
             }
+
+            // Add product to wishlist
+            $('.wishlist').on('click', function(e){
+                e.preventDefault()
+                let id = $(this).data()
+                $.ajax({
+                    method: 'GET',
+                    url: "{{route('user.wishlist.add')}}",
+                    data: {
+                        id: id
+                    },
+                    success: function(data){
+                        if(data){
+                            toastr.success(data.message)
+                        }else if(data.status == 'error'){
+                            toastr.error(data.message)
+                        }
+                    },
+                    error: function(data){
+                        toastr.error(data.message)
+                    }
+                })
+
+            })
         })
 
 </script>

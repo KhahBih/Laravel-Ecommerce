@@ -150,7 +150,7 @@
                             </div>
                             <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                 <div class="wsus__pro_details_text">
-                                    <a class="title" href="#">{{$product->name}}</a>
+                                    <a class="title" href="#">{{limitText($product->name)}}</a>
                                     <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
                                     <h4>
                                         @if(checkDiscount($product))
@@ -204,7 +204,7 @@
                                         <ul class="wsus__button_area">
                                             <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
                                             <li><a class="buy_now" href="#">buy now</a></li>
-                                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                            <li><a href="" class="wishlist" data-id="{{$product->id}}"><i class="fal fa-heart"></i></a></li>
                                             <li><a href="#"><i class="far fa-random"></i></a></li>
                                         </ul>
                                     </form>

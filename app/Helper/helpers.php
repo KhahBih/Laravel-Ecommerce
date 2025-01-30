@@ -63,7 +63,7 @@ use App\Models\GeneralSetting;
     function calculateDiscountPercent($price, $offerPrice) {
         $discountAmount = $price - $offerPrice;
         $percent = ($discountAmount / $price) * 100;
-        return $percent;
+        return round($percent);
     }
     // Check product type
     function checkProductType($type):string {

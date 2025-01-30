@@ -148,11 +148,19 @@
     <!--main/custom js-->
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script>
-        @ if($errors->any())
+        // @ if($errors->any())
+        //         @foreach ($errors->all() as $error)
+        //             toastr.error("{{$error}}");
+        //         @endforeach
+        // @ endif
+        @if ($errors->any())
+            <script>
                 @foreach ($errors->all() as $error)
-                    toastr.error("{{$error}}");
+                    toastr.error("{{ $error }}");
                 @endforeach
-        @ endif
+            </script>
+        @endif
+
         $(document).ready(function(){
             $.ajaxSetup({
                     headers:{

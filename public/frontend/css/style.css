@@ -8657,7 +8657,6 @@ header .wsus__call_text a:hover {
 /* product start */
 .wsus__new,
 .wsus__minus {
-  width: 50px;
   border-radius: 30px;
   opacity: 0.3;
   transition: all linear 0.3s;
