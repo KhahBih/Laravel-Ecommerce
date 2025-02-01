@@ -37,10 +37,6 @@
                                             status
                                         </th>
 
-                                        <th class="wsus__pro_select">
-                                            quantity
-                                        </th>
-
                                         <th class="wsus__pro_tk">
                                             price
                                         </th>
@@ -63,97 +59,8 @@
                                             <p>in stock</p>
                                         </td>
 
-                                        <td class="wsus__pro_select">
-                                            <form class="select_number">
-                                                <input class="number_area" type="text" min="1" max="100" value="1" />
-                                            </form>
-                                        </td>
-
                                         <td class="wsus__pro_tk">
                                             <h6>$180,00</h6>
-                                        </td>
-
-                                        <td class="wsus__pro_icon">
-                                            <a class="common_btn" href="#">add to cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="d-flex">
-                                        <td class="wsus__pro_img">
-                                            <img src="images/pro4.jpg" alt="product" class="img-fluid w-100">
-                                            <a href="#"><i class="far fa-times"></i></a>
-                                        </td>
-
-                                        <td class="wsus__pro_name">
-                                            <p>mean's casula fashion watch</p>
-                                        </td>
-
-                                        <td class="wsus__pro_status">
-                                            <p>in stock</p>
-                                        </td>
-
-                                        <td class="wsus__pro_select">
-                                            <form class="select_number">
-                                                <input class="number_area" type="text" min="1" max="100" value="1" />
-                                            </form>
-                                        </td>
-
-                                        <td class="wsus__pro_tk">
-                                            <h6>$140,00</h6>
-                                        </td>
-
-                                        <td class="wsus__pro_icon">
-                                            <a class="common_btn" href="#">add to cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="d-flex">
-                                        <td class="wsus__pro_img">
-                                            <img src="images/blazer_1.jpg" alt="product" class="img-fluid w-100">
-                                            <a href="#"><i class="far fa-times"></i></a>
-                                        </td>
-
-                                        <td class="wsus__pro_name">
-                                            <p>product name and details</p>
-                                        </td>
-
-                                        <td class="wsus__pro_status">
-                                            <span> out of stock</span>
-                                        </td>
-
-                                        <td class="wsus__pro_select">
-                                            <form class="select_number">
-                                                <input class="number_area" type="text" min="1" max="100" value="1" />
-                                            </form>
-                                        </td>
-
-                                        <td class="wsus__pro_tk">
-                                            <h6>$220,00</h6>
-                                        </td>
-
-                                        <td class="wsus__pro_icon">
-                                            <a class="common_btn" href="#">add to cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="d-flex">
-                                        <td class="wsus__pro_img">
-                                            <img src="images/pro2.jpg" alt="product" class="img-fluid w-100">
-                                            <a href="#"><i class="far fa-times"></i></a>
-                                        </td>
-                                        <td class="wsus__pro_name">
-                                            <p>product name and details</p>
-                                        </td>
-
-                                        <td class="wsus__pro_status">
-                                            <p>in stock</p>
-                                        </td>
-
-                                        <td class="wsus__pro_select">
-                                            <form class="select_number">
-                                                <input class="number_area" type="text" min="1" max="100" value="1" />
-                                            </form>
-                                        </td>
-
-                                        <td class="wsus__pro_tk">
-                                            <h6>$180.00</h6>
                                         </td>
 
                                         <td class="wsus__pro_icon">

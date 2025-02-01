@@ -15,18 +15,23 @@ class WishlistController extends Controller
     }
 
     public function addProductWishlist(Request $request){
-        $wishlistCount = Wishlist::where(['product_id' => $request->id, 'user_id' => Auth::user()->id])->count();
         if(!Auth::check()){
-            return response(['status' => 'error', 'message' => 'Please login to add product to wishlist!']);
-        }else if($wishlistCount > 0){
+            return response(['status' => 'error', 'message' => 'login before add a product into wishlist!']);
+        }
+
+        $wishlistCount = Wishlist::where(['product_id' => $request->id, 'user_id' => Auth::user()->id])->count();
+        if($wishlistCount > 0){
             return response(['status' => 'error', 'message' => 'The product is already at wishlist!']);
         }else{
             $wishlist = new Wishlist();
-            $wishlist = $request->id;
-            $wishlist = Auth::user()->id;
+            $wishlist->product_id = $request->id;
+            $wishlist->user_id = Auth::user()->id;
             $wishlist->save();
 
-            return response(['status' => 'success', 'message' => 'Added to wishlist!']);
+            $count = Wishlist::where('user_id', Auth::user()->id)->count();
+
+            return response(['status' => 'success', 'message' => 'Product added into the wishlist!', 'count' => $count]);
         }
+
     }
 }
