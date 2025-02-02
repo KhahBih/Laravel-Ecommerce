@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     // Wishlist routes
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::get('/wishlist/add', [WishlistController::class, 'addProductWishlist'])->name('wishlist.add');
+    Route::get('/wishlist/remove/{id}', [WishlistController::class, 'removeProductWishlist'])->name('wishlist.remove');
 });
 
 

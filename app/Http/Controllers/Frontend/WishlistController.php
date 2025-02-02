@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class WishlistController extends Controller
 {
     public function index(){
-        return view('frontend.pages.wishlist');
+        $products = Wishlist::with('product')->where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        return view('frontend.pages.wishlist', compact('products'));
     }
 
     public function addProductWishlist(Request $request){
@@ -32,6 +33,15 @@ class WishlistController extends Controller
 
             return response(['status' => 'success', 'message' => 'Product added into the wishlist!', 'count' => $count]);
         }
+    }
 
+    public function removeProductWishlist(String $id){
+        $product = Wishlist::where(['user_id' => Auth::user()->id, 'product_id' => $id])->first();
+        if($product->user_id != Auth::user()->id){
+            return redirect()->back();
+        }
+        $product->delete();
+        toastr('Product removed successfully!', 'success', 'Success');
+        return redirect()->back();
     }
 }
