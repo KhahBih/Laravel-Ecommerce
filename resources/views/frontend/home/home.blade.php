@@ -210,7 +210,7 @@
     <!--============================
         ELECTRONIC PART START
     ==============================-->
-    <section id="wsus__electronic2">
+    {{-- <section id="wsus__electronic2">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -370,7 +370,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+    @include('frontend.home.sections.category-product-slider-three')
     <!--============================
         ELECTRONIC PART END
     ==============================-->
@@ -418,7 +419,7 @@
     <!--============================
         WEEKLY BEST ITEM START
     ==============================-->
-    @include('frontend.home.sections.weekly-best')
+    {{-- @include('frontend.home.sections.weekly-best') --}}
     <!--============================
         WEEKLY BEST ITEM END
     ==============================-->

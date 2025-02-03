@@ -1,21 +1,21 @@
 <?php
-    $categoryProductSliderSectionOne = json_decode($categoryProductSliderSectionOne->value);
-    $lastKey = [];
-    foreach ($categoryProductSliderSectionOne as $key => $category){
+    $categoryProductSliderSectionThree = json_decode($categoryProductSliderSectionThree->value);
+    $lastKey2 = [];
+    foreach ($categoryProductSliderSectionThree as $key => $category){
         if(!isset($category)){
             break;
         }
-        $lastKey = [$key => $category];
+        $lastKey2 = [$key => $category];
     }
-    if(array_keys($lastKey)[0] == 'category'){
-                $category = \App\Models\Category::find($lastKey['category']);
-                $products = \App\Models\Product::where('category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
-            }elseif(array_keys($lastKey)[0] == 'sub_category'){
-                $category = \App\Models\SubCategory::find($lastKey['sub_category']);
-                $products = \App\Models\Product::where('sub_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
-            }elseif(array_keys($lastKey)[0] == 'child_category'){
-                $category = \App\Models\ChildCategory::find($lastKey['child_category']);
-                $products = \App\Models\Product::where('child_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
+    if(array_keys($lastKey2)[0] == 'category'){
+                $category = \App\Models\Category::find($lastKey2['category']);
+                $products3 = \App\Models\Product::where('category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
+            }elseif(array_keys($lastKey2)[0] == 'sub_category'){
+                $category = \App\Models\SubCategory::find($lastKey2['sub_category']);
+                $products3 = \App\Models\Product::where('sub_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
+            }elseif(array_keys($lastKey2)[0] == 'child_category'){
+                $category = \App\Models\ChildCategory::find($lastKey2['child_category']);
+                $products3 = \App\Models\Product::where('child_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
             }
 ?>
 <section id="wsus__electronic">
@@ -23,13 +23,13 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header">
-                    <h3>{{$category->name}}</h3>
+                    <h3>{{@$category->name}}</h3>
                     <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
                 </div>
             </div>
         </div>
         <div class="row flash_sell_slider">
-            @foreach ($products as $key => $product)
+            @foreach ($products3 as $key => $product)
                 <div class="col-xl-3 col-sm-6 col-lg-4">
                     <div class="wsus__product_item">
                         <span class="wsus__new">{{checkProductType($product->product_type)}}</span>
@@ -50,6 +50,7 @@
                             <li><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$product->id}}"><i
                                         class="far fa-eye"></i></a></li>
                             <li><a href="" class="wishlistt" data-id="{{$product->id}}"><i class="fal fa-heart"></i></a></li>
+                            <li><a href="#"><i class="far fa-random"></i></a>
                         </ul>
                         <div class="wsus__product_details">
                             <a class="wsus__category" href="#">{{$product->category->name}}</a>
@@ -93,7 +94,8 @@
             @endforeach
         </div>
     </div>
-    @foreach ($products as $key => $product)
+
+    @foreach ($products3 as $key => $product)
         <section class="product_popup_modal">
             <div class="modal fade" id="exampleModal-{{$product->id}}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -196,5 +198,4 @@
             </div>
         </section>
     @endforeach
-
 </section>
