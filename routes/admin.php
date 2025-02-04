@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\FooterInfoController;
 use App\Http\Controllers\Backend\HomePageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaypalSettingController;
@@ -109,5 +110,8 @@ Route::put('product-slider-section-two', [HomePageSettingController::class, 'upd
 ->name('product-slider-section-two');
 Route::put('product-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])
 ->name('product-slider-section-three');
+
+// Footer routes
+Route::resource('footer-info', FooterInfoController::class);
 
 

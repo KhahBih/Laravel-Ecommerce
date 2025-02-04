@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('footer_infos', function (Blueprint $table) {
             $table->id();
+            $table->text('logo');
+            $table->string('phone');
+            $table->string('email');
+            $table->text('address');
             $table->timestamps();
         });
     }
